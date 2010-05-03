@@ -1,0 +1,22 @@
+{
+  "name": "liferay",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "java": {
+      "java_opts": "-Djava.awt.headless=true -Xms256m -Xmx1024m -XX:MaxPermSize=256m"
+    },
+    "shino": {
+      "metadata": "liferay.yml"
+    },
+    "mysql": {
+      "wait_timeout": 28800
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["liferay", "shino", "liferay::configure_startup", "liferay::default_post"]
+}

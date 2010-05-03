@@ -1,0 +1,54 @@
+#!/bin/bash -e
+
+# You may have to change this, depending on where you installed your
+# Nagios plugins
+PATH="/usr/bin:/usr/sbin:/bin:/sbin"
+LIBEXEC="/usr/local/nagios/libexec"
+. $LIBEXEC/utils.sh
+
+check_processes()
+{
+	PROCESS="0"
+	PROCLIST="qmgr pickup master"
+	for PROC in `echo $PROCLIST`; do
+	if [ `ps -ef | grep $PROC | grep -v grep | wc -l` -lt 1 ]; then 
+		if [ $PROC == "smtpd" ]; then
+			if [ `ps -ef | grep proxymap | grep -v grep | wc -l` -lt 1 ]; then
+				PROCESS=1
+			else
+				PROCESS=0
+			fi
+		else
+			PROCESS=1
+		fi
+	fi
+	done
+
+	if [ $PROCESS -eq 1 ]; then 
+		echo "SMTP-S NOK - One or more processes not running"
+		exitstatus=$STATE_CRITICAL
+		exit $exitstatus
+	fi
+}
+
+check_ports()
+{
+	PORTS="0"
+	PORTLIST="25"
+	for NUM in `echo $PORTLIST`; do
+	if [ `netstat -an | grep LISTEN | grep $NUM | grep -v grep | wc -l` -lt 1 ]; then PORTS=1;fi
+	done
+
+	if [ $PORTS -eq 1 ]; then 
+		echo "SMTP-S NOK - One or more TCP/IP ports not listening."
+		exitstatus=$STATE_CRITICAL
+		exit $exitstatus
+	fi
+}
+
+check_processes
+check_ports
+
+echo "SMTP-S OK - Everything running like it should"
+exitstatus=$STATE_OK
+exit $exitstatus

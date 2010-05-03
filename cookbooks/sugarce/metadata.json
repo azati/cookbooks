@@ -1,0 +1,82 @@
+{
+  "recipes": {
+    "sugarce::remove_ssl": "",
+    "sugarce::default_post": "",
+    "sugarce::changedomain": "",
+    "sugarce::setup_email": "",
+    "sugarce": "",
+    "sugarce::generate_csr": "",
+    "sugarce::remove_email": "",
+    "sugarce::service_email": "",
+    "sugarce::service_web": "",
+    "sugarce::system_stack": "",
+    "sugarce::setup_ssl": "",
+    "sugarce::firstrun": ""
+  },
+  "maintainer": "Example Com",
+  "recommendations": {
+
+  },
+  "maintainer_email": "ops@example.com",
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "sugarce::remove_ssl": [
+
+    ],
+    "sugarce::default_post": [
+
+    ],
+    "sugarce::changedomain": [
+
+    ],
+    "sugarce::setup_email": [
+
+    ],
+    "sugarce": [
+
+    ],
+    "sugarce::generate_csr": [
+
+    ],
+    "sugarce::remove_email": [
+
+    ],
+    "sugarce::service_email": [
+
+    ],
+    "sugarce::service_web": [
+
+    ],
+    "sugarce::system_stack": [
+
+    ],
+    "sugarce::setup_ssl": [
+
+    ],
+    "sugarce::firstrun": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "name": "sugarce",
+  "platforms": {
+
+  },
+  "description": "Installs/Configures sugarce",
+  "replacing": {
+
+  }
+}

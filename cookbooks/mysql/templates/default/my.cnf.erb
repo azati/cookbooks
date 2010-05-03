@@ -1,0 +1,57 @@
+# MySQL configuration for Azati Project
+[mysqld]
+datadir = /var/lib/mysql
+socket  = /var/run/mysqld/mysqld.sock
+user    = mysql
+
+# Default to using old password format for compatibility with mysql 3.x
+# clients (those using the mysqlclient10 compatibility package).
+old_passwords=1
+log_slow_queries = <%= @node[:mysql][:log_slow_queries] %>
+long_query_time  = <%= @node[:mysql][:long_query_time] %>
+
+#Optimization
+max_connections     = <%= @node[:mysql][:max_connections] %>
+wait_timeout        = <%= @node[:mysql][:wait_timeout] %>
+connect_timeout     = <%= @node[:mysql][:connect_timeout] %>
+max_connect_errors  = <%= @node[:mysql][:max_connect_errors] %>
+
+key_buffer          = <%= @node[:mysql][:key_buffer] %>
+max_allowed_packet  = <%= @node[:mysql][:max_allowed_packet] %>
+table_cache         = <%= @node[:mysql][:table_cache] %>
+sort_buffer_size    = <%= @node[:mysql][:sort_buffer_size] %>
+join_buffer_size    = <%= @node[:mysql][:join_buffer_size] %>
+
+read_buffer_size          = <%= @node[:mysql][:read_buffer_size] %>
+read_rnd_buffer_size      = <%= @node[:mysql][:read_rnd_buffer_size] %>
+myisam_sort_buffer_size   = <%= @node[:mysql][:myisam_sort_buffer_size] %>
+query_cache_size          = <%= @node[:mysql][:query_cache_size] %>
+query_cache_limit         = <%= @node[:mysql][:query_cache_limit] %>
+
+innodb_additional_mem_pool_size   = <%= @node[:mysql][:innodb_additional_mem_pool_size] %>
+innodb_buffer_pool_size           = <%= @node[:mysql][:innodb_buffer_pool_size] %>
+innodb_thread_concurrency         = <%= @node[:mysql][:innodb_thread_concurrency ] %>
+#innodb_flush_log_at_trx_commit    = <%= @node[:mysql][:innodb_flush_log_at_trx_commit] %>
+
+innodb_file_per_table
+
+thread_cache_size   = <%= @node[:mysql][:thread_cache_size] %>
+
+[isamchk]
+key_buffer          = <%= @node[:mysql][:isamchk][:key_buffer] %>
+sort_buffer_size    = <%= @node[:mysql][:isamchk][:sort_buffer_size] %>
+read_buffer         = <%= @node[:mysql][:isamchk][:read_buffer] %>
+write_buffer        = <%= @node[:mysql][:isamchk][:write_buffer] %>
+
+[myisamchk]
+key_buffer          = <%= @node[:mysql][:myisamchk][:key_buffer] %>
+sort_buffer_size    = <%= @node[:mysql][:myisamchk][:sort_buffer_size] %>
+read_buffer         = <%= @node[:mysql][:myisamchk][:read_buffer] %>
+write_buffer        = <%= @node[:mysql][:myisamchk][:write_buffer] %>
+
+[mysqld_safe]
+log-error   = <%= @node[:mysql][:mysqld_safe][:log_error] %>
+pid-file    = /var/run/mysqld/mysqld.pid
+
+[client]
+socket  = /var/run/mysqld/mysqld.sock

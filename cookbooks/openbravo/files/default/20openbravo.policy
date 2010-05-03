@@ -1,0 +1,4 @@
+// permissions for Openbravo ERP
+grant codeBase "file:${catalina.base}/webapps/openbravo/-" {
+	permission java.security.AllPermission;
+};

@@ -1,0 +1,5 @@
+set[:nagios][:apache][:handler]="azati_apache2_handler"
+set[:nagios][:apache][:script]="check_apachestatus.pl"
+set[:nagios][:apache][:cfg]="apache.cfg"
+set[:nagios][:apache][:n2rrd][:script]="apache.pl"
+set[:nagios][:apache][:n2rrd][:template]="apache.t"

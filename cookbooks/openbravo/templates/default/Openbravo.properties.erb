@@ -1,0 +1,137 @@
+# *************************************************************************
+# * The contents of this file are subject to the Openbravo  Public  License
+# * Version  1.0  (the  "License"),  being   the  Mozilla   Public  License
+# * Version 1.1  with a permitted attribution clause; you may not  use this
+# * file except in compliance with the License. You  may  obtain  a copy of
+# * the License at http://www.openbravo.com/legal/license.html 
+# * Software distributed under the License  is  distributed  on  an "AS IS"
+# * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+# * License for the specific  language  governing  rights  and  limitations
+# * under the License. 
+# * The Original Code is Openbravo ERP. 
+# * The Initial Developer of the Original Code is Openbravo SL 
+# * All portions are Copyright (C) 2007-2009 Openbravo SL 
+# * All Rights Reserved. 
+# * Contributor(s):  ______________________________________.
+# ************************************************************************
+#
+# Documentation at http://wiki.openbravo.com/wiki/Openbravo.properties
+
+####################
+# Date/time format #
+####################
+
+dateFormat.js=%d-%m-%Y
+dateFormat.sql=DD-MM-YYYY
+dateFormat.java=dd-MM-yyyy
+dateTimeFormat.java=dd-MM-yyyy HH:mm:ss
+dateTimeFormat.sql=DD-MM-YYYY HH24:MI:SS
+
+###########
+# General #
+###########
+
+# Static content URL. Use the default value to make it dynamic.
+# Don't change this unless you know what you are doing
+web.url=@actual_url_context@/web
+
+# Full URL of the context, *only* used by the Web Services installation
+context.url=http://localhost:8080/openbravo
+
+# Absolute path to the attachments directory
+attach.path=<%= @node[:openbravo][:attach_path] %>
+
+# Context name, used in the final war file
+context.name=openbravo
+
+# Root sources directory, used by modularity
+source.path=<%= @node[:openbravo][:dir] %>
+
+#Deploy mode: valid values [class, war, none]
+deploy.mode=class
+
+############
+# Database #
+############
+
+# Oracle example:
+#
+# bbdd.rdbms=ORACLE
+# bbdd.driver=oracle.jdbc.driver.OracleDriver
+# bbdd.url=jdbc:oracle:thin:@localhost:1521:xe
+# bbdd.sid=xe
+# bbdd.systemUser=SYSTEM
+# bbdd.systemPassword=SYSTEM
+# bbdd.user=TAD
+# bbdd.password=TAD
+# bbdd.sessionConfig=ALTER SESSION SET NLS_DATE_FORMAT='DD-MM-YYYY' NLS_NUMERIC_CHARACTERS='.,'
+
+bbdd.rdbms=POSTGRE
+bbdd.driver=org.postgresql.Driver
+bbdd.url=jdbc:postgresql://<%= @node[:openbravo][:db_host] %>:5432
+bbdd.sid=<%= @node[:openbravo][:db_name] %>
+bbdd.systemUser=postgres
+bbdd.systemPassword=<%= @node[:postgresql][:root_password] %>
+bbdd.user=<%= @node[:openbravo][:db_user] %>
+bbdd.password=<%= @node[:openbravo][:db_password] %>
+bbdd.sessionConfig=select update_dateFormat('DD-MM-YYYY')
+
+##################
+# Tomcat manager #
+##################
+#
+tomcat.manager.url=http://localhost:8080/manager
+tomcat.manager.username=admin
+tomcat.manager.password=admin
+
+##########################
+# Development parameters #
+##########################
+
+bbdd.outputscript=databasescript.sql
+bbdd.verbosity=INFO
+
+# CSS Sprites Generator
+generateSprites=no
+
+# use js/css minimization (in local-context and war-file)
+minimizeJSandCSS=yes
+
+# How sqlc should execute the queries embedded in xsql file at compilation time
+# traditional: only uses the base query ignoring all optional parameters
+# optimized: includes most optional parameter to achieve better performance
+# If optimized fails for some xsql files, downgrade level to traditional
+sqlc.queryExecutionStrategy=optimized
+
+##################
+# Authentication #
+##################
+
+# Leave this empty to use the default login hardler.
+# LAM server example: org.openbravo.authentication.lam.LamAuthenticationManager
+authentication.class=
+
+###########
+# Add-ons #
+###########
+
+# External Pentaho Services
+pentahoServer=
+
+##############
+# Validation #
+##############
+
+validate.model=true
+isMinorVersion=false
+
+##############
+# Safe mode  #
+##############
+
+# This property is used to activate/deactivate the safe mode of Openbravo ERP
+# When this property is activated, if the last build wasn't succesful, or Tomcat
+# wasn't restarted, users will only be able to login in the application 
+# with role System Administrator
+
+safe.mode=false

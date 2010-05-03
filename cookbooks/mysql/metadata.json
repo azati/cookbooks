@@ -1,0 +1,46 @@
+{
+  "recipes": {
+    "mysql::mysql_dev": "",
+    "mysql": "",
+    "mysql::server": ""
+  },
+  "maintainer": "Example Com",
+  "recommendations": {
+
+  },
+  "maintainer_email": "ops@example.com",
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "mysql::mysql_dev": [
+
+    ],
+    "mysql": [
+
+    ],
+    "mysql::server": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "name": "mysql",
+  "platforms": {
+
+  },
+  "description": "Installs/Configures mysql",
+  "replacing": {
+
+  }
+}

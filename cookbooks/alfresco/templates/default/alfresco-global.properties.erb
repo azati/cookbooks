@@ -1,0 +1,94 @@
+###############################
+## Common Alfresco Properties #
+###############################
+
+#
+# Sample custom content and index data location
+#-------------
+dir.root=<%= @node[:alfresco][:data_dir] %>
+
+#
+# Sample database connection properties
+#-------------
+db.name=<%= @node[:alfresco][:db_name] %>
+db.username=<%= @node[:alfresco][:db_login] %>
+db.password=<%= @node[:alfresco][:db_password] %>
+db.host=<%= @node[:alfresco][:db_host] %>
+db.port=3306
+
+#
+# External locations
+#-------------
+ooo.exe=<%= @node[:alfresco][:openoffice_path] %>
+img.root=<%= @node[:alfresco][:imagemagick_path] %>
+swf.exe=<%= @node[:alfresco][:swftools_path] %>
+
+#
+# MySQL connection
+#-------------
+#db.driver=com.mysql.jdbc.Driver
+db.driver=org.gjt.mm.mysql.Driver
+db.url=jdbc:mysql://${db.host}:${db.port}/${db.name}
+hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
+
+#
+# Index Recovery Mode
+#-------------
+#index.recovery.mode=Auto
+
+#
+# Outbound Email Configuration
+#-------------
+#mail.host=
+#mail.port=25
+#mail.username=anonymous
+#mail.password=
+#mail.encoding=UTF-8
+#mail.from.default=alfresco@alfresco.org
+#mail.smtp.auth=false
+
+#
+# Alfresco Email Service and Email Server
+#-------------
+
+# Enable/Disable the inbound email service. �The service could be used by processes other than
+# the Email Server (e.g. direct RMI access) so this flag is independent of the Email Service.
+#-------------
+#email.inbound.enabled=true
+
+# Email Server properties 
+#-------------
+#email.server.enabled=true
+#email.server.port=25
+#email.server.domain=alfresco.com
+#email.inbound.unknownUser=anonymous
+
+# A comma separated list of email REGEX patterns of allowed senders.
+# If there are any values in the list then all sender email addresses
+# must match. �For example:
+# � .*\@alfresco\.com, .*\@alfresco\.org
+# Allow anyone:
+#-------------
+#email.server.allowed.senders=.*
+
+#
+# The default authentication chain
+# To configure external authentication subsystems see:
+# http://wiki.alfresco.com/wiki/Alfresco_Authentication_Subsystems
+#-------------
+#authentication.chain=alfrescoNtlm1:alfrescoNtlm
+
+#
+# IMAP
+#-------------
+#imap.server.enabled=true
+#imap.server.port=143
+#imap.server.host=localhost
+
+#
+# How long should shutdown wait to complete normally before
+# taking stronger action and calling System.exit()
+# in ms, 10,000 is 10 seconds
+#
+#shutdown.backstop.timeout=10000
+#shutdown.backstop.enabled=true

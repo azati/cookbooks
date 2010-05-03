@@ -1,0 +1,16 @@
+{
+  "name": "zencart",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "shino": {
+      "metadata": "zencart.yml"
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["zencart","shino","zencart::configure_startup","zencart::default_post"]
+}

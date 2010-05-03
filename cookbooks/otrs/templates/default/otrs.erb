@@ -1,0 +1,50 @@
+# --
+# added for OTRS (http://otrs.org/)
+# $Id: apache2-httpd-new.include.conf,v 1.5 2008/11/10 11:08:55 ub Exp $
+# --
+
+# agent, admin and customer frontend
+ScriptAlias /otrs/ "<%= @node[:otrs][:dir] %>/bin/cgi-bin/"
+Alias /otrs-web/ "<%= @node[:otrs][:dir] %>/var/httpd/htdocs/"
+
+# if mod_perl is used
+<IfModule mod_perl.c>
+
+    # load all otrs modules
+    Perlrequire <%= @node[:otrs][:dir] %>/scripts/apache2-perl-startup.pl
+
+    # Apache::Reload - Reload Perl Modules when Changed on Disk
+    PerlModule Apache2::Reload
+    PerlInitHandler Apache2::Reload
+    PerlModule Apache2::RequestRec
+
+    # set mod_perl2 options
+    <Location /otrs>
+#        ErrorDocument 403 /otrs/customer.pl
+        ErrorDocument 403 /otrs/index.pl
+        SetHandler  perl-script
+        PerlResponseHandler ModPerl::Registry
+        Options +ExecCGI
+        PerlOptions +ParseHeaders
+        PerlOptions +SetupEnv
+        Order allow,deny
+        Allow from all
+    </Location>
+
+</IfModule>
+
+# directory settings
+<Directory "<%= @node[:otrs][:dir] %>/bin/cgi-bin/">
+    AllowOverride None
+    Options +ExecCGI -Includes
+    Order allow,deny
+    Allow from all
+</Directory>
+<Directory "<%= @node[:otrs][:dir] %>/var/httpd/htdocs/">
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+# MaxRequestsPerChild (so no apache child will be to big!)
+MaxRequestsPerChild 400

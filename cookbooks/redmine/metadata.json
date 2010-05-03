@@ -1,0 +1,82 @@
+{
+  "recipes": {
+    "redmine::remove_ssl": "",
+    "redmine::setup_email": "",
+    "redmine::changedomain": "",
+    "redmine::firstrun": "",
+    "redmine::default_post": "",
+    "redmine::service_email": "",
+    "redmine": "",
+    "redmine::remove_email": "",
+    "redmine::generate_csr": "",
+    "redmine::service_web": "",
+    "redmine::system_stack": "",
+    "redmine::setup_ssl": ""
+  },
+  "maintainer": "Example Com",
+  "recommendations": {
+
+  },
+  "maintainer_email": "ops@example.com",
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "redmine::remove_ssl": [
+
+    ],
+    "redmine::setup_email": [
+
+    ],
+    "redmine::changedomain": [
+
+    ],
+    "redmine::firstrun": [
+
+    ],
+    "redmine::default_post": [
+
+    ],
+    "redmine::service_email": [
+
+    ],
+    "redmine": [
+
+    ],
+    "redmine::remove_email": [
+
+    ],
+    "redmine::generate_csr": [
+
+    ],
+    "redmine::service_web": [
+
+    ],
+    "redmine::system_stack": [
+
+    ],
+    "redmine::setup_ssl": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "name": "redmine",
+  "platforms": {
+
+  },
+  "description": "Installs/Configures redmine",
+  "replacing": {
+
+  }
+}

@@ -1,0 +1,5 @@
+set[:nagios][:juggernaut][:handler]="azati_juggernaut_handler"
+set[:nagios][:juggernaut][:script]="check_juggernaut.pl"
+set[:nagios][:juggernaut][:cfg]="juggernaut.cfg"
+set[:nagios][:juggernaut][:n2rrd][:script]="juggernaut.pl"
+set[:nagios][:juggernaut][:n2rrd][:template]="juggernaut.t"

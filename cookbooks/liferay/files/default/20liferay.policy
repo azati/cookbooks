@@ -1,0 +1,4 @@
+// permissions for Liferay
+grant codeBase "file:${catalina.base}/webapps/ROOT/-" {
+	permission java.security.AllPermission;
+};

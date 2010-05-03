@@ -1,0 +1,5 @@
+set[:nagios][:backgroundrb][:handler]="azati_backgroundrb_handler"
+set[:nagios][:backgroundrb][:script]="check_backgroundrb.rb"
+set[:nagios][:backgroundrb][:cfg]="backgroundrb.cfg"
+set[:nagios][:backgroundrb][:n2rrd][:script]="backgroundrb.pl"
+set[:nagios][:backgroundrb][:n2rrd][:template]="backgroundrb.t"

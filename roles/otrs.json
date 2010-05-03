@@ -1,0 +1,19 @@
+{
+  "name": "otrs",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "apache": {
+      "default_docroot": "/opt/otrs/var/httpd/htdocs"
+    },
+    "shino": {
+      "metadata": "otrs.yml"
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["otrs","shino","otrs::configure_startup","otrs::default_post"]
+}

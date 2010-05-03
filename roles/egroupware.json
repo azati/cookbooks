@@ -1,0 +1,19 @@
+{
+  "name": "egroupware",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "php": {
+      "pear_packages": ["HTTP_WebDAV_Server-1.0.0RC4", "Auth_SASL", "XML_Feed_Parser", "Net_Sieve", "Net_IMAP", "Log" ]
+    },
+    "shino": {
+      "metadata": "egroupware.yml"
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["egroupware","shino","egroupware::configure_startup","egroupware::default_post"]
+}

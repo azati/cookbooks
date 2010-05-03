@@ -1,0 +1,32 @@
+PerlLoadModule Apache::Authn::Redmine
+
+<VirtualHost *:8080>
+<Location /svn>
+    DAV svn
+    SVNParentPath /var/svn
+    AuthType Basic
+    AuthName "Subversion login"
+
+    #Allow access to project members only
+    PerlAccessHandler Apache::Authn::Redmine::access_handler
+    PerlAuthenHandler Apache::Authn::Redmine::authen_handler
+
+    RedmineDSN "DBI:mysql:database=<%= @node[:redmine][:db_name] %>;host=127.0.0.1"
+    RedmineDbUser "<%= @node[:redmine][:db_login] %>"
+    RedmineDbPass "<%= @node[:redmine][:db_password] %>"
+
+    require valid-user
+
+</Location>
+
+<Location /svn-private>
+     DAV svn
+     SVNParentPath "/var/svn" 
+     Order deny,allow
+     Deny from all
+     # only allow reading orders
+     <Limit GET PROPFIND OPTIONS REPORT>
+        Allow from 127.0.0.1
+     </Limit>
+</Location>
+</VirtualHost>

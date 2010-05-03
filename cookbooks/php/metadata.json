@@ -1,0 +1,62 @@
+{
+  "recipes": {
+    "php::php-mysql": "",
+    "php::php-imap": "",
+    "php": "",
+    "php::devel": "",
+    "php::php-curl": "",
+    "php::php-mbstring": "",
+    "php::php-eaccelerator": ""
+  },
+  "maintainer": "Example Com",
+  "recommendations": {
+
+  },
+  "maintainer_email": "ops@example.com",
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "php::php-mysql": [
+
+    ],
+    "php": [
+
+    ],
+    "php::php-imap": [
+
+    ],
+    "php::devel": [
+
+    ],
+    "php::php-curl": [
+
+    ],
+    "php::php-mbstring": [
+
+    ],
+    "php::php-eaccelerator": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "name": "php",
+  "platforms": {
+
+  },
+  "description": "Installs/Configures php",
+  "replacing": {
+
+  }
+}

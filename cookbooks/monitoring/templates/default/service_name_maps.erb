@@ -1,0 +1,3 @@
+<% @node[:monitoring][:components].each do |component| %>
+<%= "#{component.upcase} stats: #{component}" %>
+<%  end %>

@@ -1,0 +1,46 @@
+{
+  "recipes": {
+    "ruby": "",
+    "ruby::rubygems": "",
+    "ruby::rails": ""
+  },
+  "maintainer": "Example Com",
+  "recommendations": {
+
+  },
+  "maintainer_email": "ops@example.com",
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "ruby::rubygems": [
+
+    ],
+    "ruby": [
+
+    ],
+    "ruby::rails": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "name": "ruby",
+  "platforms": {
+
+  },
+  "description": "Installs/Configures ruby",
+  "replacing": {
+
+  }
+}

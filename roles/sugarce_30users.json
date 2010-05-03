@@ -1,0 +1,16 @@
+{
+  "name": "sugarce_30users",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "shino": {
+      "metadata": "sugarce_30users.yml"
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["sugarce", "shino", "sugarce::configure_startup", "sugarce::default_post"]
+}

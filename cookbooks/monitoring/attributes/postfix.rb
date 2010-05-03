@@ -1,0 +1,5 @@
+set[:nagios][:postfix][:handler]="azati_postfix_handler"
+set[:nagios][:postfix][:script]="check_postfix"
+set[:nagios][:postfix][:cfg]="postfix.cfg"
+set[:nagios][:postfix][:n2rrd][:script]="postfix.pl"
+set[:nagios][:postfix][:n2rrd][:template]="postfix.t"

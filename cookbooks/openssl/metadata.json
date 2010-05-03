@@ -1,0 +1,42 @@
+{
+  "recipes": {
+    "openssl::csr_request": "",
+    "openssl": ""
+  },
+  "maintainer": "37signals",
+  "recommendations": {
+
+  },
+  "maintainer_email": "sysadmins@37signals.com",
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  },
+  "license": "Apache v2.0",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "openssl": [
+
+    ],
+    "openssl::csr_request": [
+
+    ]
+  },
+  "long_description": "",
+  "name": "openssl",
+  "platforms": {
+
+  },
+  "description": "Configures openssl",
+  "replacing": {
+
+  }
+}

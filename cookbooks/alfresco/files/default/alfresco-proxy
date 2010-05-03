@@ -1,0 +1,4 @@
+ProxyPass        /alfresco/ http://localhost:8080/alfresco/
+ProxyPassReverse /alfresco/ http://localhost:8080/alfresco/
+ProxyPass        /share/ http://localhost:8080/share/
+ProxyPassReverse /share/ http://localhost:8080/share/

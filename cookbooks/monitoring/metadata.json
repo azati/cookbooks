@@ -1,0 +1,98 @@
+{
+  "recipes": {
+    "monitoring::apache": "",
+    "monitoring::nagios_plugins": "Install nagios plugins",
+    "monitoring::juggernaut": "",
+    "monitoring": "",
+    "monitoring::ssh": "",
+    "monitoring::cpu": "",
+    "monitoring::debug": "",
+    "monitoring::mem": "",
+    "monitoring::http": "",
+    "monitoring::postfix": "",
+    "monitoring::iostat": "",
+    "monitoring::mysql": "",
+    "monitoring::mailq": "",
+    "monitoring::backgroundrb": "",
+    "monitoring::nginx": "",
+    "monitoring::df": ""
+  },
+  "maintainer": "Azati",
+  "recommendations": {
+
+  },
+  "maintainer_email": "azati@azati.com",
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "monitoring::apache": [
+
+    ],
+    "monitoring::nagios_plugins": [
+
+    ],
+    "monitoring::juggernaut": [
+
+    ],
+    "monitoring::ssh": [
+
+    ],
+    "monitoring::cpu": [
+
+    ],
+    "monitoring::debug": [
+
+    ],
+    "monitoring::mem": [
+
+    ],
+    "monitoring::http": [
+
+    ],
+    "monitoring::postfix": [
+
+    ],
+    "monitoring::iostat": [
+
+    ],
+    "monitoring::mysql": [
+
+    ],
+    "monitoring::mailq": [
+
+    ],
+    "monitoring::backgroundrb": [
+
+    ],
+    "monitoring::nginx": [
+
+    ],
+    "monitoring": [
+
+    ],
+    "monitoring::df": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "name": "monitoring",
+  "platforms": {
+
+  },
+  "description": "Installs/Configures monitoring",
+  "replacing": {
+
+  }
+}

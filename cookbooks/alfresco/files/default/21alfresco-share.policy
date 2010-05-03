@@ -1,0 +1,4 @@
+// permissions for Alfresco share
+grant codeBase "file:${catalina.base}/webapps/share/-" {
+	permission java.security.AllPermission;
+};

@@ -1,0 +1,54 @@
+#"monitoring": {
+#      "components": ["backgroundrb","juggernaut","nginx","cpu","mysql","mem","ssh","http","df","iostat","postfix","mailq"]
+#    },
+#    "shino": {
+#      "metadata": "azatipanel.yml"
+#    },
+#    "azatipanel": {
+#      "mode": "production"
+#    },
+#    "mysql": {
+#        "wait_timeout": 28800
+#    },
+---
+ssl:
+email:
+server_template: single_server
+cluster_template: single_server_cluster
+cookbook: azatipanel
+user_name: admin
+chef_advanced_params:
+  monitoring:
+    components:
+    - backgroundrb
+    - juggernaut
+    - nginx
+    - cpu
+    - mysql
+    - mem
+    - ssh
+    - http
+    - df
+    - iostat
+    - postfix
+    - mailq
+  ssl:
+    enabled: false
+status_components:
+- backgroundrb
+- juggernaut
+- nginx
+- mysql
+statistic_components:
+- backgroundrb
+- juggernaut
+- nginx
+- cpu
+- mysql
+- mem
+- ssh
+- http
+- df
+- iostat
+- postfix
+

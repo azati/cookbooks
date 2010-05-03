@@ -1,0 +1,16 @@
+{
+  "name": "orangehrm",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "shino": {
+      "metadata": "orangehrm.yml"
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["orangehrm","shino","orangehrm::configure_startup","orangehrm::default_post"]
+}

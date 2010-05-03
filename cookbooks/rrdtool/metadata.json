@@ -1,0 +1,42 @@
+{
+  "recipes": {
+    "rrdtool": "",
+    "rrdtool::ruby_binding": ""
+  },
+  "maintainer": "Example Com",
+  "recommendations": {
+
+  },
+  "maintainer_email": "ops@example.com",
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "rrdtool": [
+
+    ],
+    "rrdtool::ruby_binding": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "name": "rrdtool",
+  "platforms": {
+
+  },
+  "description": "Installs/Configures rrdtool",
+  "replacing": {
+
+  }
+}

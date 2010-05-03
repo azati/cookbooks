@@ -1,0 +1,16 @@
+{
+  "name": "dotproject",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "shino": {
+      "metadata": "dotproject.yml"
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["dotproject","shino","dotproject::configure_startup","dotproject::default_post"]
+}

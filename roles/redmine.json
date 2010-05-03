@@ -1,0 +1,34 @@
+{
+  "name": "redmine",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["nginx","cpu","mysql","df","http","ssh","mailq","postfix","iostat","mem"]
+    },
+    "shino": {
+      "metadata": "redmine.yml"
+    },
+    "ruby": {
+      "rails_ver": "2.3.5"
+    },
+    "apache": {
+      "listen_ports": "8080"
+    },
+    "nagios": {
+      "nginx": {
+        "check_command": "$USER1$/check_nginx.sh -H localhost -P 80 -p /usr/local/nginx/logs/ -n nginx.pid -s nginx_status",
+        "handler_command": "$USER1$/eventhandlers/azati_nginx_handler  $SERVICESTATE$ $SERVICESTATETYPE$ $SERVICEATTEMPT$"
+      },
+      "http": {
+        "check_command": "$USER1$/check_http -I localhost -H localhost -u http://localhost/"
+      }
+    },
+    "mysql": {
+        "wait_timeout": "28800"
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["redmine","shino","redmine::configure_startup","redmine::default_post"]
+}

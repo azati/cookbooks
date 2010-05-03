@@ -1,0 +1,32 @@
+#!/bin/bash -e
+
+#
+# Event handler script for restarting the web server on the local machine
+#
+# Note: This script will only restart the web server if the service is
+#       retried 3 times (in a "soft" state) or if the web service somehow
+#       manages to fall into a "hard" error state.
+#
+
+
+# What state is the HTTP service in?
+case "$1" in
+OK)
+        # The service just came back up, so don't do anything...
+        ;;
+WARNING)
+        # We don't really care about warning states, since the service is probably still running...
+        ;;
+UNKNOWN)
+        # We don't know what might be causing an unknown error, so don't do anything...
+        ;;
+CRITICAL)
+        # The HTTP service appears to have a problem - perhaps we should restart the server...
+
+
+        # Call the init script to restart the juggernaut server
+	if [ $3 -ge 2 ]; then
+            /etc/init.d/juggernaut restart
+	fi
+        ;;
+esac

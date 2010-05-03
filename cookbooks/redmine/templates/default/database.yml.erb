@@ -1,0 +1,7 @@
+production:
+  adapter: mysql
+  database: <%= @node[:redmine][:db_name] %>
+  host: <%= @node[:redmine][:db_host] %>
+  username: <%= @node[:redmine][:db_login] %>
+  password: <%= @node[:redmine][:db_password] %>
+  encoding: utf8

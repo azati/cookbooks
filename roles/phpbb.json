@@ -1,0 +1,16 @@
+{
+  "name": "phpbb",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "shino": {
+      "metadata": "phpbb.yml"
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["phpbb","shino","phpbb::configure_startup","phpbb::default_post"]
+}

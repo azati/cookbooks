@@ -1,0 +1,4 @@
+// permissions for Alfresco
+grant codeBase "file:${catalina.base}/webapps/alfresco/-" {
+	permission java.security.AllPermission;
+};

@@ -1,0 +1,49 @@
+<VirtualHost *:443>
+        ServerAdmin <%= @node[:apache][:contact] %>
+
+        DocumentRoot <%= @node[:apache][:default_docroot] %>
+        <Directory />
+                Options FollowSymLinks
+                AllowOverride None
+        </Directory>
+        <Directory <%= @node[:apache][:default_docroot] %>>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride None
+                Order allow,deny
+                allow from all
+                # This directive allows us to have apache2's default start page
+                # in /apache2-default/, but still have / go to the right place
+                #RedirectMatch ^/$ /apache2-default/
+        </Directory>
+
+        ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+        <Directory "/usr/lib/cgi-bin">
+                AllowOverride None
+                Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
+                Order allow,deny
+                Allow from all
+        </Directory>
+
+        ErrorLog <%= @node[:apache][:log_dir] %>/error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+
+        CustomLog <%= @node[:apache][:log_dir] %>/access.log combined
+
+        SSLEngine on
+        SSLCertificateFile <%= @node[:apache][:certs_dir] %>/cert.crt
+        SSLCertificateKeyFile <%= @node[:apache][:pk_dir] %>/private.key
+
+        <% if @node[:apache][:certificates][:ca_cert] != "" -%>
+        SSLCertificateChainFile <%= @node[:apache][:certs_dir] %>/ca_cert.crt
+        <% end -%>
+</VirtualHost>
+
+<VirtualHost *:<%= @node[:apache][:listen_ports][0]%>>
+        RewriteEngine On
+        RewriteCond %{HTTPS} off
+        RewriteCond %{REQUEST_URI} !^/server-status/
+        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>

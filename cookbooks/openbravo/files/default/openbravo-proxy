@@ -1,0 +1,2 @@
+ProxyPass        /openbravo/ http://localhost:8080/openbravo/
+ProxyPassReverse /openbravo/ http://localhost:8080/openbravo/

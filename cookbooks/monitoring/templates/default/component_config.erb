@@ -1,0 +1,22 @@
+define command{
+    command_name    azati_check_<%= @name %>
+    command_line    <%= @params[:check_command] %>
+}
+
+<% if @params[:handler_command] %>
+define command{
+    command_name        azati_<%= @name %>_handler
+    command_line        <%= @params[:handler_command] %>
+}
+<% end %>
+
+define service{
+    use				azati-service
+    host_name             	localhost
+    service_description   	<%= @name.upcase %> stats
+    check_command         	azati_check_<%= @name %>
+    check_interval             	<%= @params[:check_interval] %>
+    <% if @params[:handler_command] %>
+    event_handler		azati_<%= @name %>_handler
+    <% end %>
+}

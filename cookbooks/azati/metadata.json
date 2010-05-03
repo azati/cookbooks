@@ -1,0 +1,42 @@
+{
+  "recipes": {
+    "azati::apt_update": "",
+    "azati": ""
+  },
+  "maintainer": "Example Com",
+  "recommendations": {
+
+  },
+  "maintainer_email": "ops@example.com",
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "azati::apt_update": [
+
+    ],
+    "azati": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "name": "azati",
+  "platforms": {
+
+  },
+  "description": "Installs/Configures azati",
+  "replacing": {
+
+  }
+}

@@ -1,0 +1,2 @@
+JAVA_HOME="<%= @node[:java][:java_home] %>"
+JAVA_OPTS="<%= @node[:java][:java_opts] %> -Dfile.encoding=UTF8 -Duser.timezone=GMT -Djava.security.auth.login.config=$CATALINA_HOME/conf/jaas.config -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false"
