@@ -4,10 +4,6 @@ package "sun-java6-jdk" do
   action :install
 end
 
-package "sun-java6-jre" do
-  action :install
-end
-
 #trick to bypass random exit code returned by update-java-alternatives
 execute "update-java-alternatives -s java-6-sun" do
   action :run

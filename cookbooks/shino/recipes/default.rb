@@ -1,4 +1,4 @@
-include_recipe "rrdtool::ruby_binding"
+#include_recipe "rrdtool::ruby_binding"
 
 %w{open4 right_http_connection activesupport}.each do |gem|
   gem_package gem do

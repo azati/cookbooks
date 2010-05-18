@@ -15,9 +15,3 @@ template "/etc/default/tomcat6" do
   source "tomcat6.erb"
   backup false
 end
-
-#fix https://bugs.launchpad.net/ubuntu/+source/tomcat6/+bug/410379
-remote_file "#{node[:tomcat6][:config_dir]}/policy.d/03catalina.policy" do
-  source "03catalina.policy"
-  backup false
-end

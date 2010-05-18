@@ -1,0 +1,22 @@
+{
+  "name": "alfresco",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "java": {
+      "java_opts": "-Djava.awt.headless=true -Xms128m -Xmx512m -XX:MaxPermSize=128m"
+    },
+    "shino": {
+      "metadata": "alfresco.yml"
+    },
+    "azati": {
+      "stack": true
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["alfresco", "shino", "alfresco::configure_startup", "alfresco::default_post"]
+}

@@ -5,7 +5,10 @@ directory "/mnt/tmp" do
   action :create
 end
 
-include_recipe "azati::backports_repo"
+unless node[:azati][:stack]
+  include_recipe "azati::partner_repo"
+end
+
 include_recipe "azati::apt_update"
 
 #install required packages
@@ -52,37 +55,34 @@ remote_file "#{node[:apache][:default_docroot]}/index.html" do
   backup false
 end
 
-remote_file "/mnt/tmp/alfresco-community-war-3.2r2.tar.gz" do
-  source "alfresco-community-war-3.2r2.tar.gz"
+remote_file "/mnt/tmp/#{node[:alfresco][:pkg_name]}" do
+  source "http://data.azati.s3.amazonaws.com/alfresco/#{node[:alfresco][:pkg_name]}"
 end
 
-remote_file "/mnt/tmp/mysql-connector-java-5.1.7-bin.jar" do
-  source "mysql-connector-java-5.1.7-bin.jar"
+remote_file "/mnt/tmp/#{node[:alfresco][:jc_name]}" do
+  source "http://data.azati.s3.amazonaws.com/alfresco/#{node[:alfresco][:jc_name]}"
 end
 
 bash "install_alfresco" do
   code <<-EOH
 cd /mnt/tmp
-tar -xzf alfresco-community-war-3.2r2.tar.gz
+tar -xzf #{node[:alfresco][:pkg_name]}
 mv alfresco.war #{node[:tomcat6][:catalina_base]}/webapps
 mv share.war #{node[:tomcat6][:catalina_base]}/webapps
 chown #{node[:tomcat6][:user]}:#{node[:tomcat6][:group]} #{node[:tomcat6][:catalina_base]}/webapps/alfresco.war
 chown #{node[:tomcat6][:user]}:#{node[:tomcat6][:group]} #{node[:tomcat6][:catalina_base]}/webapps/share.war
-mv mysql-connector-java-5.1.7-bin.jar #{node[:tomcat6][:catalina_home]}/lib
+mv #{node[:alfresco][:jc_name]} #{node[:tomcat6][:catalina_home]}/lib
 EOH
 end
 
-bash "setup_proxy_and_address" do
-  code <<-EOH
-ADDR=`curl http://169.254.169.254/latest/meta-data/public-hostname`
-perl -p -i -e "s/<Connector port=\\"8080\\" /<Connector port=\\"8080\\" proxyName=\\"$ADDR\\" proxyPort=\\"80\\" /" #{node[:tomcat6][:config_dir]}/server.xml
-EOH
-end
+tomcat6_setup_proxy
 
 mysql_reset_root_password
 
-mysql_command "CREATE USER 'nagios'@'localhost' IDENTIFIED BY 'Nu71QHuSgOtTxXCIYPKJ'" do
-  action :execute
+unless node[:azati][:stack]
+  mysql_command "CREATE USER 'nagios'@'localhost' IDENTIFIED BY 'Nu71QHuSgOtTxXCIYPKJ'" do
+    action :execute
+  end
 end
 
 mysql_create_db node[:alfresco][:db_name] do
@@ -126,9 +126,9 @@ template "#{node[:tomcat6][:catalina_base]}/shared/classes/alfresco-global.prope
   backup false
 end
 
-execute "perl -p -i -e \"s/shared\\.loader=.*/shared\\.loader=\\\\$\\\\{catalina\\.base\\\\}\\/shared\\/classes,\\\\$\\\\{catalina\\.base\\\\}\\/shared\\/lib\\/\\*\\.jar/\" #{node[:tomcat6][:config_dir]}/catalina.properties" do
-  action :run
-end
+#execute "perl -p -i -e \"s/shared\\.loader=.*/shared\\.loader=\\\\$\\\\{catalina\\.base\\\\}\\/shared\\/classes,\\\\$\\\\{catalina\\.base\\\\}\\/shared\\/lib\\/\\*\\.jar/\" #{node[:tomcat6][:config_dir]}/catalina.properties" do
+#  action :run
+#end
 
 remote_file "/etc/rc.local" do
   source "rc.local"
@@ -139,10 +139,8 @@ execute "/usr/lib/openoffice/program/soffice \"-accept=socket,host=localhost,por
   action :run
 end
 
-include_recipe "monitoring"
-
-service "cron" do
-  action :enable
+unless node[:azati][:stack]
+  include_recipe "monitoring"
 end
 
 service "apache2" do
@@ -159,6 +157,10 @@ ruby_block "show_success_message" do
       Chef::Log.info "Alfresco successully installed."
       Chef::Log.info "Login - admin"
       Chef::Log.info "Password - admin"
+      Chef::Log.info "Mysql host: #{node[:alfresco][:db_host]}"
+      Chef::Log.info "Mysql database: #{node[:alfresco][:db_name]}"
+      Chef::Log.info "Mysql login: #{node[:alfresco][:db_login]}"
+      Chef::Log.info "Mysql password: #{node[:alfresco][:db_password]}"
       Chef::Log.info "Alfresco start takes about 2-5 minutes. Wait and check if everything is ok."
       printf "Ready to post install? [yes or ctrl+c to terminate]"
       break if readline.strip == "yes"

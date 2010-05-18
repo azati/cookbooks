@@ -1,0 +1,1 @@
+*/10 * * * * root /etc/cron.azati/nagios-check.sh
