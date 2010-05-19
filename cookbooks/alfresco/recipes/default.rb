@@ -33,7 +33,7 @@ package "swftools" do
   action :install
 end
 
-%w{ openoffice.org-headless openoffice.org-java-common }.each do |pkg|
+%w{ openoffice.org-core openoffice.org-java-common }.each do |pkg|
   package pkg do
     action :install
   end
@@ -135,7 +135,7 @@ remote_file "/etc/rc.local" do
   backup false
 end
 
-execute "/usr/lib/openoffice/program/soffice \"-accept=socket,host=localhost,port=8100;urp;StarOffice.ServiceManager\" -nologo -headless -nofirststartwizard" do
+execute "/usr/lib/openoffice/program/soffice \"-accept=socket,host=localhost,port=8100;urp;StarOffice.ServiceManager\" -nologo -headless -nofirststartwizard &" do
   action :run
 end
 

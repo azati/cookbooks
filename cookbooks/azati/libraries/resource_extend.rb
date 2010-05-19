@@ -1,9 +1,11 @@
+require 'readline'
+
 class Chef
   class Resource
 
     def read_setting(message)
       Chef::Log.info message
-      readline.strip
+      ::Readline.readline('> ', false)
     end
 
   end
