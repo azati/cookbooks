@@ -59,8 +59,9 @@ remote_file "/mnt/tmp/#{node[:alfresco][:pkg_name]}" do
   source "http://data.azati.s3.amazonaws.com/alfresco/#{node[:alfresco][:pkg_name]}"
 end
 
-remote_file "/mnt/tmp/#{node[:alfresco][:jc_name]}" do
+remote_file "#{node[:tomcat6][:catalina_home]}/lib/#{node[:alfresco][:jc_name]}" do
   source "http://data.azati.s3.amazonaws.com/alfresco/#{node[:alfresco][:jc_name]}"
+  mode "0644"
 end
 
 bash "install_alfresco" do
@@ -71,8 +72,14 @@ mv alfresco.war #{node[:tomcat6][:catalina_base]}/webapps
 mv share.war #{node[:tomcat6][:catalina_base]}/webapps
 chown #{node[:tomcat6][:user]}:#{node[:tomcat6][:group]} #{node[:tomcat6][:catalina_base]}/webapps/alfresco.war
 chown #{node[:tomcat6][:user]}:#{node[:tomcat6][:group]} #{node[:tomcat6][:catalina_base]}/webapps/share.war
-mv #{node[:alfresco][:jc_name]} #{node[:tomcat6][:catalina_home]}/lib
 EOH
+end
+
+file "#{node[:tomcat6][:catalina_base]}/alfresco.log" do
+  owner node[:tomcat6][:user]
+  group node[:tomcat6][:group]
+  mode "0644"
+  action :create
 end
 
 tomcat6_setup_proxy
@@ -162,8 +169,8 @@ ruby_block "show_success_message" do
       Chef::Log.info "Mysql login: #{node[:alfresco][:db_login]}"
       Chef::Log.info "Mysql password: #{node[:alfresco][:db_password]}"
       Chef::Log.info "Alfresco start takes about 2-5 minutes. Wait and check if everything is ok."
-      printf "Ready to post install? [yes or ctrl+c to terminate]"
-      break if readline.strip == "yes"
+      Chef::Log.info "Ready to post install? [yes or ctrl+c to terminate]"
+      break if ::Readline.readline('> ', false) == "yes"
     end
   end
   action :create
