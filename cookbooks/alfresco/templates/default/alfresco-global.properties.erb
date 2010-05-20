@@ -26,10 +26,17 @@ swf.exe=<%= @node[:alfresco][:swftools_path] %>
 #
 # MySQL connection
 #-------------
+#hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
 #db.driver=com.mysql.jdbc.Driver
+
 db.driver=org.gjt.mm.mysql.Driver
 db.url=jdbc:mysql://${db.host}:${db.port}/${db.name}
-hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
+
+#
+# PostgreSQL connection (requires postgresql-8.2-504.jdbc3.jar or equivalent)
+#
+#db.driver=org.postgresql.Driver
+#db.url=jdbc:postgresql://localhost:5432/alfresco
 
 #
 # Index Recovery Mode
@@ -51,7 +58,7 @@ hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
 # Alfresco Email Service and Email Server
 #-------------
 
-# Enable/Disable the inbound email service. �The service could be used by processes other than
+# Enable/Disable the inbound email service. The service could be used by processes other than
 # the Email Server (e.g. direct RMI access) so this flag is independent of the Email Service.
 #-------------
 #email.inbound.enabled=true
@@ -65,8 +72,8 @@ hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
 
 # A comma separated list of email REGEX patterns of allowed senders.
 # If there are any values in the list then all sender email addresses
-# must match. �For example:
-# � .*\@alfresco\.com, .*\@alfresco\.org
+# must match. For example:
+#  .*\@alfresco\.com, .*\@alfresco\.org
 # Allow anyone:
 #-------------
 #email.server.allowed.senders=.*
@@ -79,16 +86,14 @@ hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
 #authentication.chain=alfrescoNtlm1:alfrescoNtlm
 
 #
-# IMAP
+# URL Generation Parameters (The ${localname} token is replaced by the local server name)
 #-------------
-#imap.server.enabled=true
-#imap.server.port=143
-#imap.server.host=localhost
-
+#alfresco.context=alfresco
+#alfresco.host=${localname}
+#alfresco.port=8080
+#alfresco.protocol=http
 #
-# How long should shutdown wait to complete normally before
-# taking stronger action and calling System.exit()
-# in ms, 10,000 is 10 seconds
-#
-#shutdown.backstop.timeout=10000
-#shutdown.backstop.enabled=true
+#share.context=share
+#share.host=${localname}
+#share.port=8080
+#share.protocol=http
