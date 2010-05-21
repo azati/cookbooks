@@ -1,0 +1,1 @@
+set_unless[:amazon][:public_hostname]               = ""

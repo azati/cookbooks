@@ -82,7 +82,9 @@ file "#{node[:tomcat6][:catalina_base]}/alfresco.log" do
   action :create
 end
 
-tomcat6_setup_proxy
+amazon_get_public_hostname
+
+tomcat6_setup_proxy node[:amazon][:public_hostname]
 
 mysql_reset_root_password
 
