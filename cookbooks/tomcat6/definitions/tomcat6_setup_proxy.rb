@@ -5,7 +5,7 @@ define :tomcat6_setup_proxy do
       :public_address => params[:name]
     })
     owner "root"
-    group [:tomcat6][:group]
+    group node[:tomcat6][:group]
     mode "0644"
     backup false
   end
