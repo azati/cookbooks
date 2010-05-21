@@ -44,11 +44,7 @@ mysql_command "UPDATE #{node[:alfresco][:db_name]}.alf_node_properties SET strin
   action :execute
 end
 
-bash "update_config" do
-  code <<-EOH
-perl -p -i -e "s/proxyName=\\"\\S*\\"/proxyName=\\"#{node[:alfresco][:domain_name]}\\"/" #{node[:tomcat6][:config_dir]}/server.xml
-EOH
-end
+tomcat6_setup_proxy node[:alfresco][:domain_name]
 
 log "Alfresco User - #{node[:alfresco][:login]}"
 log "Alfresco Password - #{node[:alfresco][:password]}"

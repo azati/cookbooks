@@ -8,7 +8,7 @@ end
 execute "update-java-alternatives -s java-6-sun" do
   action :run
   ignore_failure true
-  returns 1
+  returns 2
 end
 
 bash "java_env_vars" do

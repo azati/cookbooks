@@ -28,7 +28,7 @@ file node[:mysql][:mysqld_safe][:log_error] do
 end
 
 service "mysql" do
-  action :enable
+  action :restart
 end
 
 directory "/opt/azati/lib" do
