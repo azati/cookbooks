@@ -1,1 +1,1 @@
-set_unless[:amazon][:public_hostname]               = ""
+set[:amazon][:public_hostname]               = `curl http://169.254.169.254/latest/meta-data/public-hostname`.strip
