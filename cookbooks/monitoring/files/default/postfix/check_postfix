@@ -3,7 +3,7 @@
 # You may have to change this, depending on where you installed your
 # Nagios plugins
 PATH="/usr/bin:/usr/sbin:/bin:/sbin"
-LIBEXEC="/usr/local/nagios/libexec"
+LIBEXEC="/usr/lib/nagios/plugins"
 . $LIBEXEC/utils.sh
 
 check_processes()

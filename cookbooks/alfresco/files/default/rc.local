@@ -11,5 +11,5 @@
 #
 # By default this script does nothing.
 
-/usr/lib/openoffice/program/soffice "-accept=socket,host=localhost,port=8100;urp;StarOffice.ServiceManager" -nologo -headless -nofirststartwizard
+/usr/lib/openoffice/program/soffice "-accept=socket,host=localhost,port=8100;urp;StarOffice.ServiceManager" -nologo -headless -nofirststartwizard &
 exit 0

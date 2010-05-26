@@ -11,6 +11,7 @@ define :monitoring_component do
   if params[:component][:cfg]
     remote_file"#{node[:nagios][:dir]}/conf.d/#{params[:component][:cfg]}" do
       source "#{params[:name]}/#{params[:component][:cfg]}"
+      mode "0644"
       backup false
     end
   else
@@ -18,6 +19,7 @@ define :monitoring_component do
       source "component_config.erb"
       action :create
       variables :params=>params[:component], :name=>params[:name]
+      mode "0644"
       backup false
     end
   end
@@ -25,6 +27,7 @@ define :monitoring_component do
   if params[:component][:handler]
     remote_file"#{node[:nagios][:script_dir]}/eventhandlers/#{params[:component][:handler]}" do
       source "#{params[:name]}/#{params[:component][:handler]}"
+      mode "0755"
       backup false
     end
   end

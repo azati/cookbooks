@@ -168,6 +168,7 @@ ruby_block "show_success_message" do
       Chef::Log.info "Mysql database: #{node[:alfresco][:db_name]}"
       Chef::Log.info "Mysql login: #{node[:alfresco][:db_login]}"
       Chef::Log.info "Mysql password: #{node[:alfresco][:db_password]}"
+      Chef::Log.info "Mysql root password: #{node[:mysql][:root_password]}"
       Chef::Log.info "Alfresco start takes about 2-5 minutes. Wait and check if everything is ok."
       Chef::Log.info "Ready to post install? [yes or ctrl+c to terminate]"
       break if ::Readline.readline('> ', false) == "yes"
