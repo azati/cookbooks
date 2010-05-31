@@ -1,0 +1,111 @@
+#!/bin/sh
+
+cd `dirname $0`
+FUNAMBOL_HOME=`(cd <%= @node[:funambol][:data_dir] %>/Funambol ; pwd)`
+DS_SERVER_HOME=$FUNAMBOL_HOME/ds-server
+
+if [ ! -d $FUNAMBOL_HOME/config ]; then
+    #
+    # maybe we are in Funambol/tool/bin
+    #
+    FUNAMBOL_HOME=$FUNAMBOL_HOME/..
+    DS_SERVER_HOME=$FUNAMBOL_HOME/ds-server
+fi
+
+# Setting the JAVA_HOME to the JRE in the bundle if not set or if not correctly set
+if [ -z "$JAVA_HOME" ]; then
+    export JAVA_HOME=$FUNAMBOL_HOME/tools/jre-1.6.0/jre
+else
+    if [ ! -f "$JAVA_HOME/bin/java" ]; then
+        export JAVA_HOME=$FUNAMBOL_HOME/tools/jre-1.6.0/jre
+    fi
+fi
+
+if [ -z "$JAVA_HOME" ]; then
+  echo "Please, set JAVA_HOME before running this script."
+  exit 1
+fi
+
+if [ ! -f "$JAVA_HOME/bin/java" ]
+then
+    echo "Please set JAVA_HOME to the path of a valid jre."
+    exit;
+fi
+
+export J2EE_HOME=${FUNAMBOL_HOME}/tools/tomcat
+export CATALINA_HOME=${FUNAMBOL_HOME}/tools/tomcat
+
+cd ${FUNAMBOL_HOME}
+
+export LANG=en_US.utf-8
+
+cd ${J2EE_HOME}/bin
+
+COMED=true
+
+case $1 in
+start)
+
+    if [ "$COMED" = "true" ] ; then
+        #
+        # Run Hypersonic
+        #
+        sh $FUNAMBOL_HOME/bin/hypersonic start > /dev/null
+    fi
+
+    #
+    # Run CTP Server
+    #
+    sh $FUNAMBOL_HOME/bin/ctp-server start > /dev/null
+
+    #
+    # Run DS Server
+    #
+    sh $FUNAMBOL_HOME/bin/funambol-server start > /dev/null
+
+    #
+    # Run Inbox Listener
+    #
+    sh $FUNAMBOL_HOME/bin/inbox-listener start > /dev/null
+
+    #
+    # Run Pim Listener
+    #
+    sh $FUNAMBOL_HOME/bin/pim-listener start > /dev/null
+    ;;
+stop)
+    #
+    # Shutdown Inbox Listener
+    #
+    sh $FUNAMBOL_HOME/bin/inbox-listener stop > /dev/null
+
+    #
+    # Shutdown Pim Listener
+    #
+    sh $FUNAMBOL_HOME/bin/pim-listener stop > /dev/null
+
+    #
+    # Shutdown Tomcat
+    #
+    sh $FUNAMBOL_HOME/bin/funambol-server stop > /dev/null
+
+    #
+    # Shutdown CTP Server
+    #
+    sh $FUNAMBOL_HOME/bin/ctp-server stop > /dev/null
+
+    if [ "$COMED" = "true" ] ; then
+        #
+        # Shutdown Hypersonic
+        #
+        sh $FUNAMBOL_HOME/bin/hypersonic stop > /dev/null
+    fi
+    ;;
+license)
+    less "${FUNAMBOL_HOME}/LICENSE.txt"
+    ;;
+*)
+    echo "usage: $0 [start|stop|license]"
+    ;;
+esac
+

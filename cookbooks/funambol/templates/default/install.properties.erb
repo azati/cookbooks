@@ -1,0 +1,72 @@
+# ==============================================================================
+# Funambol Data Synchronization Server
+# ==============================================================================
+# Installation properties
+# ==============================================================================
+
+#
+# The server URI
+#
+# This parameter is optional: if empty the server will use the
+# client request uri
+#
+server-uri=
+
+# The context path to use to access SyncServer
+context-path=/funambol
+
+#
+# The DBMS name. One of:
+#   - hypersonic
+#   - postgresql
+#   - mysql
+#
+dbms=mysql
+
+#
+# JDBC settings:
+#   classpath: the classpath of the JDBC driver
+#   url:       the url to access the database with the choosen JDBC driver
+#   user:      the db user
+#   password:  the user's password
+#
+#
+# Hypersonic
+# ==========
+#
+# jdbc.classpath=<somepath>/hsqldb.jar
+# jdbc.driver=org.hsqldb.jdbcDriver
+# jdbc.url=jdbc:hsqldb:hsql://<hostname>:1476
+# jdbc.user=sa
+# jdbc.password=
+#
+# PostgreSQL
+# ==========
+#
+# jdbc.classpath=<somepath>/postgresql.jar
+# jdbc.driver=org.postgresql.Driver
+# jdbc.url=jdbc:postgresql://<hostname>/funambol
+# jdbc.user=funambol
+# jdbc.password=funambol
+#
+# MySQL
+# =====
+#
+jdbc.classpath=<%= @node[:funambol][:data_dir] %>/Funambol/tools/jre-1.6.0/jre/lib/ext/<%= @node[:funambol][:jc_name] %>
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://<%= @node[:funambol][:db_host] %>:3306/<%= @node[:funambol][:db_name] %>?characterEncoding=UTF-8
+jdbc.user=<%= @node[:funambol][:db_login] %>
+jdbc.password=<%= @node[:funambol][:db_password] %>
+#
+#
+
+#jdbc.classpath=../tools/hypersonic/lib/hsqldb.jar
+#jdbc.driver=org.hsqldb.jdbcDriver
+#jdbc.url=jdbc:hsqldb:hsql://localhost/funambol
+#jdbc.user=sa
+#jdbc.password=
+
+#
+# Modules definitions
+#
+modules-to-install=content-provider-8.5.2,email-connector-8.5.2,foundation-8.5.2,phones-support-8.5.2,webdemo-8.5.2
