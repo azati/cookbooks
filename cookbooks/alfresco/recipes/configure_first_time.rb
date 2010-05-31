@@ -2,6 +2,8 @@
 node[:alfresco][:password]                   = node[:params][:password]
 node[:alfresco][:domain_name]                = node[:params][:domain_name]
 
+include_recipe "azati::add_hostname_to_hosts_file"
+
 encrypt_alfresco_pass node[:alfresco][:password]
 
 mysql_reset_root_password

@@ -1,8 +1,0 @@
-#cron
-
-mkdir /etc/cron.azati
-cp ../shared/nagios-check.sh /etc/cron.azati/nagios-check.sh
-cp ../shared/nagios-check /etc/cron.d/nagios-check
-
-don't forget to enable
-update-rc.d nagios3 defaults 30 18
