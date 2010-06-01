@@ -26,16 +26,16 @@ directory "/mnt/tmp" do
   action :create
 end
 
-remote_file "/mnt/tmp/SugarCE-5.5.1.zip" do
-  source "SugarCE-5.5.1.zip"
+remote_file "/mnt/tmp/SugarCE-#{node[:sugarce][:version]}.zip" do
+  source "http://data.azati.s3.amazonaws.com/sugarce/SugarCE-#{node[:sugarce][:version]}.zip"
 end
 
 bash "unpack_sugar" do
   code <<-EOH
 cd /mnt/tmp
-unzip -q SugarCE-5.5.1.zip
-mv -f SugarCE-Full-5.5.1/* #{node[:apache][:default_docroot]}
-mv -f SugarCE-Full-5.5.1/.htaccess #{node[:apache][:default_docroot]}
+unzip -q SugarCE-#{node[:sugarce][:version]}.zip
+mv -f SugarCE-Full-#{node[:sugarce][:version]}/* #{node[:apache][:default_docroot]}
+mv -f SugarCE-Full-#{node[:sugarce][:version]}/.htaccess #{node[:apache][:default_docroot]}
 chown -R #{node[:apache][:user]}:#{node[:apache][:group]} #{node[:apache][:default_docroot]}
 EOH
 end
@@ -45,15 +45,12 @@ directory "/mnt/tmp" do
   recursive true
 end
 
-#To mysql monitoring work properly, we have to create nagios mysql user.
-mysql_command "CREATE USER 'nagios'@'localhost' IDENTIFIED BY 'Nu71QHuSgOtTxXCIYPKJ'" do
-  action :execute
-end
+if node[:azati][:stack]
+  mysql_command "CREATE USER 'nagios'@'localhost' IDENTIFIED BY 'Nu71QHuSgOtTxXCIYPKJ'" do
+    action :execute
+  end
 
-include_recipe "monitoring"
-
-service "cron" do
-  action :enable
+  include_recipe "monitoring"
 end
 
 service "apache2" do
@@ -68,15 +65,15 @@ ruby_block "show_mysql_root_password" do
   block do
     loop do
       Chef::Log.info "Now configure your SugarCE application with following settings:"
-      Chef::Log.info "Mysql host: #{node[:sugarce][:db_host]}"
+      Chef::Log.info "Mysql host:     #{node[:sugarce][:db_host]}"
       Chef::Log.info "Mysql database: #{node[:sugarce][:db_name]}"
-      Chef::Log.info "Mysql login: #{node[:sugarce][:db_login]}"
+      Chef::Log.info "Mysql login:    #{node[:sugarce][:db_login]}"
       Chef::Log.info "Mysql password: any"
-      Chef::Log.info "----------------------"
-      Chef::Log.info "Mysql root login: root"
+      Chef::Log.info "--------------------------------------------"
+      Chef::Log.info "Mysql root login:    root"
       Chef::Log.info "Mysql root password: #{node[:mysql][:root_password]}"
       printf "Ready to post install? [yes or ctrl+c to terminate]"
-      break if readline.strip == "yes"
+      break if ::Readline.readline('> ', false) == "yes"
     end
   end
   action :create

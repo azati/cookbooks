@@ -1,6 +1,6 @@
 extension="eaccelerator.so"
 eaccelerator.shm_size="16"
-eaccelerator.cache_dir="/var/cache/eaccelerator"
+eaccelerator.cache_dir="<%= @node[:php][:eaccelerator_dir] %>"
 eaccelerator.enable="1"
 eaccelerator.optimizer="1"
 eaccelerator.check_mtime="1"

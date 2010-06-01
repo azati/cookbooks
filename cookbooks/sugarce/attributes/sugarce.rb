@@ -1,3 +1,5 @@
+set[:sugarce][:version]                     = "5.5.2"
+
 set_unless[:sugarce][:login]                = "admin"
 
 set_unless[:sugarce][:db_host]              = "localhost"

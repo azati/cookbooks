@@ -17,45 +17,17 @@
 # limitations under the License.
 #
 
-# Where the various parts of apache are
-case platform
-when "redhat","centos","fedora","suse"
-  set[:apache][:dir]              = "/etc/httpd"
-  set[:apache][:sites_available]  = "/etc/httpd/sites-available"
-  set[:apache][:log_dir]          = "/var/log/httpd"
-  set[:apache][:user]             = "apache"
-  set[:apache][:group]            = "apache"
-  set[:apache][:binary]           = "/usr/sbin/httpd"
-  set[:apache][:icondir]          = "/var/www/icons/"
-  set[:apache][:certs_dir]        = "/etc/pki/tls/certs"
-  set[:apache][:pk_dir]           = "/etc/pki/tls/private"
-  set[:apache][:default_docroot]  = "/var/www/html"
-  set[:apache][:maintenance_root] = "/var/www-azati"
-when "debian","ubuntu"
-  set[:apache][:dir]              = "/etc/apache2"
-  set[:apache][:sites_available]  = "/etc/apache2/sites-available"
-  set[:apache][:log_dir]          = "/var/log/apache2"
-  set[:apache][:user]             = "www-data"
-  set[:apache][:group]            = "www-data"
-  set[:apache][:binary]           = "/usr/sbin/apache2"
-  set[:apache][:icondir]          = "/usr/share/apache2/icons"
-  set[:apache][:certs_dir]        = "/etc/apache2/ssl"
-  set[:apache][:pk_dir]           = "/etc/apache2/ssl"
-  set[:apache][:default_docroot]  = "/var/www"
-  set[:apache][:maintenance_root] = "/var/www-azati"
-else
-  set[:apache][:dir]              = "/etc/apache2"
-  set[:apache][:sites_available]  = "/etc/apache2/sites-available"
-  set[:apache][:log_dir]          = "/var/log/apache2"
-  set[:apache][:user]             = "www-data"
-  set[:apache][:group]            = "www-data"
-  set[:apache][:binary]           = "/usr/sbin/apache2"
-  set[:apache][:icondir]          = "/usr/share/apache2/icons"
-  set[:apache][:certs_dir]        = "/etc/apache2/ssl"
-  set[:apache][:pk_dir]           = "/etc/apache2/ssl"
-  set[:apache][:default_docroot]  = "/var/www"
-  set[:apache][:maintenance_root] = "/var/www-azati"
-end
+set[:apache][:dir]              = "/etc/apache2"
+set[:apache][:sites_available]  = "/etc/apache2/sites-available"
+set[:apache][:log_dir]          = "/var/log/apache2"
+set[:apache][:user]             = "www-data"
+set[:apache][:group]            = "www-data"
+set[:apache][:binary]           = "/usr/sbin/apache2"
+set[:apache][:icondir]          = "/usr/share/apache2/icons"
+set[:apache][:certs_dir]        = "/etc/apache2/ssl"
+set[:apache][:pk_dir]           = "/etc/apache2/ssl"
+set[:apache][:default_docroot]  = "/var/www"
+set[:apache][:maintenance_root] = "/var/www-azati"
 
 ###
 # These settings need the unless, since we want them to be tunable,
