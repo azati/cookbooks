@@ -52,11 +52,11 @@ dbms=mysql
 # MySQL
 # =====
 #
-jdbc.classpath=<%= @node[:funambol][:data_dir] %>/Funambol/tools/jre-1.6.0/jre/lib/ext/<%= @node[:funambol][:jc_name] %>
+jdbc.classpath=<%= @node[:sugarce_funambol][:funambol_data_dir] %>/Funambol/tools/jre-1.6.0/jre/lib/ext/<%= @node[:sugarce_funambol][:funambol_jc_name] %>
 jdbc.driver=com.mysql.jdbc.Driver
-jdbc.url=jdbc:mysql://<%= @node[:funambol][:db_host] %>:3306/<%= @node[:funambol][:db_name] %>?characterEncoding=UTF-8
-jdbc.user=<%= @node[:funambol][:db_login] %>
-jdbc.password=<%= @node[:funambol][:db_password] %>
+jdbc.url=jdbc:mysql://<%= @node[:sugarce_funambol][:funambol_db_host] %>:3306/<%= @node[:sugarce_funambol][:funambol_db_name] %>?characterEncoding=UTF-8
+jdbc.user=<%= @node[:sugarce_funambol][:funambol_db_login] %>
+jdbc.password=<%= @node[:sugarce_funambol][:funambol_db_password] %>
 #
 #
 
@@ -69,4 +69,4 @@ jdbc.password=<%= @node[:funambol][:db_password] %>
 #
 # Modules definitions
 #
-modules-to-install=content-provider-8.5.2,email-connector-8.5.2,foundation-8.5.2,phones-support-8.5.2,webdemo-8.5.2
+modules-to-install=content-provider-8.5.2,email-connector-8.5.2,foundation-8.5.2,phones-support-8.5.2,webdemo-8.5.2,funambol-sugarcrm-connector-8.0.5

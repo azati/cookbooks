@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.4.0" class="java.beans.XMLDecoder">
+    <object class="com.funambol.sugarcrm.security.SugarcrmOfficer">
+    
+        <void property="sugarUrl">
+            <string>http://<%= @node[:sugarce_funambol][:domain_name] %></string>
+        </void>
+                
+        <void property="version">
+            <!-- default is .1 -->
+            <string>.1</string> 
+        </void>  
+        
+        <void property="applicationName">
+            <!-- default is SugarWap -->
+            <string>SugarWap</string> 
+        </void>  
+        
+        <void property="passwordEncrypt">
+            <boolean>true</boolean>
+        </void>
+
+		<void property="officerDelegate">
+			<string></string>
+		</void>                
+    </object>
+</java>
