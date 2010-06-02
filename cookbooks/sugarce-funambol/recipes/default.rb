@@ -87,11 +87,16 @@ mysql_grant node[:sugarce_funambol][:funambol_db_name] do
   db_password node[:sugarce_funambol][:funambol_db_password]
 end
 
+template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/ds-server/install.properties" do
+  source "install.properties.erb"
+  backup false
+end
+
 execute "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/bin/install -Dforce-db-creation=true" do
   action :run
 end
 
-template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/ds-server/config/com/funambol/server/security/SugarcrmOfficer.xml" do
+template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/com/funambol/server/security/SugarcrmOfficer.xml" do
   source "SugarcrmOfficer.xml.erb"
   backup false
 end
@@ -103,12 +108,13 @@ template "/etc/init.d/funambol" do
   group "root"
 end
 
-execute "update-rc.d funambol defaults" do
-  action :run
+update_rc_d "funambol" do
+  action :defaults
+  nn     98
 end
 
-execute "/etc/init.d/funambol start" do
-  action :run
+service "funambol" do
+  action :start
 end
 
 if node[:azati][:stack]
