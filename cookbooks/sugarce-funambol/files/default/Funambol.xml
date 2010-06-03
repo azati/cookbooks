@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_17" class="java.beans.XMLDecoder"> 
+ <object class="com.funambol.server.config.ServerConfiguration"> 
+  <void property="engineConfiguration"> 
+   <object class="com.funambol.server.config.EngineConfiguration"> 
+    <void property="minMaxMsgSize"> 
+     <long>1800</long> 
+    </void> 
+    <void property="officer"> 
+     <string>com/funambol/server/security/SugarcrmOfficer.xml</string> 
+    </void> 
+    <void property="serverURI"> 
+     <string></string> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="serverInfo"> 
+   <object class="com.funambol.framework.core.DevInf"> 
+    <void property="OEM"> 
+     <string>-</string> 
+    </void> 
+    <void property="UTC"> 
+     <boolean>true</boolean> 
+    </void> 
+    <void property="devID"> 
+     <string>funambol</string> 
+    </void> 
+    <void property="devTyp"> 
+     <string>server</string> 
+    </void> 
+    <void property="exts"> 
+     <void method="add"> 
+      <object class="com.funambol.framework.core.Ext"> 
+       <void property="XNam"> 
+        <string>X-funambol-smartslow</string> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+    <void property="fwV"> 
+     <string>-</string> 
+    </void> 
+    <void property="hwV"> 
+     <string>-</string> 
+    </void> 
+    <void property="man"> 
+     <string>Funambol</string> 
+    </void> 
+    <void property="mod"> 
+     <string>DS Server</string> 
+    </void> 
+    <void property="supportLargeObjs"> 
+     <boolean>true</boolean> 
+    </void> 
+    <void property="supportNumberOfChanges"> 
+     <boolean>true</boolean> 
+    </void> 
+    <void property="swV"> 
+     <string>8.5.2</string> 
+    </void> 
+    <void property="verDTD"> 
+     <object class="com.funambol.framework.core.VerDTD"> 
+      <void property="value"> 
+       <string>1.2</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 

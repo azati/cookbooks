@@ -101,6 +101,28 @@ template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/com/fun
   backup false
 end
 
+mysql_command "INSERT INTO `fnbl_sync_source` (`uri`, `config`, `name`, `sourcetype`) VALUES ('calendars','sugar-crm-8.0/sugar-crm-8.0/sugar-ca-8.0/calendars.xml','calendars','sugar-ca-8.0'), ('contacts','sugar-crm-8.0/sugar-crm-8.0/sugar-co-8.0/contacts.xml','contacts','sugar-co-8.0');" do
+  action :execute
+end
+
+template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/sugar-crm-8.0/sugar-crm-8.0/sugar-ca-8.0/calendars.xml" do
+  source "calendars.xml.erb"
+  mode "0644"
+  owner "root"
+  group "root"
+end
+
+template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/sugar-crm-8.0/sugar-crm-8.0/sugar-co-8.0/contacts.xml" do
+  source "contacts.xml.erb"
+  mode "0644"
+  owner "root"
+  group "root"
+end
+
+remote_file "#{node[:sugarce_funambol][:funambol_data_dir]}/config/Funambol.xml" do
+  source "Funambol.xml"
+end
+
 template "/etc/init.d/funambol" do
   source "funambol.erb"
   mode "0755"
@@ -134,6 +156,9 @@ ruby_block "show_message" do
   block do
     loop do
       Chef::Log.info "Now configure your SugarCE application and Funambol with following settings:"
+      Chef::Log.info "Mysql root login:    root"
+      Chef::Log.info "Mysql root password: #{node[:mysql][:root_password]}"
+      Chef::Log.info "--------------------------------------------"
       Chef::Log.info "SugarCE"
       Chef::Log.info "Mysql host:     #{node[:sugarce_funambol][:sugar_db_host]}"
       Chef::Log.info "Mysql database: #{node[:sugarce_funambol][:sugar_db_name]}"
@@ -148,9 +173,6 @@ ruby_block "show_message" do
       Chef::Log.info "-----"
       Chef::Log.info "Admin login:    admin"
       Chef::Log.info "Admin password: sa"
-      Chef::Log.info "--------------------------------------------"
-      Chef::Log.info "Mysql root login:    root"
-      Chef::Log.info "Mysql root password: #{node[:mysql][:root_password]}"
       printf "Ready to post install? [yes or ctrl+c to terminate]"
       break if ::Readline.readline('> ', false) == "yes"
     end
