@@ -101,7 +101,7 @@ template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/com/fun
   backup false
 end
 
-mysql_command "INSERT INTO `fnbl_sync_source` (`uri`, `config`, `name`, `sourcetype`) VALUES ('calendars','sugar-crm-8.0/sugar-crm-8.0/sugar-ca-8.0/calendars.xml','calendars','sugar-ca-8.0'), ('contacts','sugar-crm-8.0/sugar-crm-8.0/sugar-co-8.0/contacts.xml','contacts','sugar-co-8.0');" do
+mysql_command "INSERT INTO #{node[:sugarce_funambol][:funambol_db_name]}.`fnbl_sync_source` (`uri`, `config`, `name`, `sourcetype`) VALUES ('calendars','sugar-crm-8.0/sugar-crm-8.0/sugar-ca-8.0/calendars.xml','calendars','sugar-ca-8.0'), ('contacts','sugar-crm-8.0/sugar-crm-8.0/sugar-co-8.0/contacts.xml','contacts','sugar-co-8.0');" do
   action :execute
 end
 
