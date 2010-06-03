@@ -105,6 +105,16 @@ mysql_command "INSERT INTO #{node[:sugarce_funambol][:funambol_db_name]}.fnbl_sy
   action :execute
 end
 
+directory "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/sugar-crm-8.0/sugar-crm-8.0/sugar-ca-8.0" do
+  recursive true
+  action :create
+end
+
+directory "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/sugar-crm-8.0/sugar-crm-8.0/sugar-co-8.0" do
+  recursive true
+  action :create
+end
+
 template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/sugar-crm-8.0/sugar-crm-8.0/sugar-ca-8.0/calendars.xml" do
   source "calendars.xml.erb"
   mode "0644"
