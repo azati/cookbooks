@@ -129,7 +129,7 @@ template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/sugar-c
   group "root"
 end
 
-remote_file "#{node[:sugarce_funambol][:funambol_data_dir]}/config/Funambol.xml" do
+remote_file "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/Funambol.xml" do
   source "Funambol.xml"
 end
 
