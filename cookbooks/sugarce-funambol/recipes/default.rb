@@ -98,6 +98,7 @@ end
 
 template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/com/funambol/server/security/SugarcrmOfficer.xml" do
   source "SugarcrmOfficer.xml.erb"
+  variables :sugarce_funambol_domain_name => node[:sugarce_funambol][:domain_name]
   backup false
 end
 
@@ -117,6 +118,7 @@ end
 
 template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/sugar-crm-8.0/sugar-crm-8.0/sugar-ca-8.0/calendars.xml" do
   source "calendars.xml.erb"
+  variables :sugarce_funambol_domain_name => node[:sugarce_funambol][:domain_name]
   mode "0644"
   owner "root"
   group "root"
@@ -124,6 +126,7 @@ end
 
 template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/sugar-crm-8.0/sugar-crm-8.0/sugar-co-8.0/contacts.xml" do
   source "contacts.xml.erb"
+  variables :sugarce_funambol_domain_name => node[:sugarce_funambol][:domain_name]
   mode "0644"
   owner "root"
   group "root"
