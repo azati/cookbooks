@@ -6,7 +6,7 @@
       "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
     },
     "shino": {
-      "metadata": "sugarce-funambol.yml"
+      "metadata": "sugarce_funambol.yml"
     },
     "mysql": {
       "wait_timeout": 28800
@@ -18,5 +18,5 @@
   "json_class": "Chef::Role",
   "description": "",
   "chef_type": "role",
-  "recipes": ["sugarce-funambol", "shino", "sugarce-funambol::configure_startup", "sugarce-funambol::default_post"]
+  "recipes": ["sugarce_funambol", "shino", "sugarce_funambol::configure_startup", "sugarce_funambol::default_post"]
 }
