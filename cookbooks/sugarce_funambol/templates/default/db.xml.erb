@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.6.0" class="java.beans.XMLDecoder">
+ <object class="com.funambol.server.db.DataSourceConfiguration">
+  
+    <!-- The connection URL -->
+    <void method="setProperty">
+     <string>url</string>
+     <string>jdbc:mysql://<%= @node[:sugarce_funambol][:funambol_db_host] %>:3306/<%= @node[:sugarce_funambol][:funambol_db_name] %>?characterEncoding=UTF-8</string>
+    </void>
+    
+    <!-- The fully qualified Java class name of the JDBC driver to be used. -->
+    <void method="setProperty">
+     <string>driverClassName</string>
+     <string>com.mysql.jdbc.Driver</string>
+    </void>
+
+    <!-- The connection username -->
+    <void method="setProperty">
+     <string>username</string>
+     <string><%= @node[:sugarce_funambol][:funambol_db_login] %></string>
+    </void>
+    
+    <!-- The connection password -->
+    <void method="setProperty">
+     <string>password</string>
+     <string><%= @node[:sugarce_funambol][:funambol_db_password] %></string>
+    </void>
+   
+    <!-- The maximum number of active connections -->
+    <!--
+         For performance reason is better to keep this value equals to maxIdle
+    -->
+    <void method="setProperty">
+     <string>maxActive</string>
+     <string>8</string>
+    </void>
+
+    <!-- The maximum number of connections that can remain idle in the pool -->
+    <void method="setProperty">
+     <string>maxIdle</string>
+     <string>8</string>
+    </void>
+
+    <!-- The minimum number of connections that can remain idle in the pool -->
+    <void method="setProperty">
+     <string>minIdle</string>
+     <string>8</string>
+    </void>
+    
+    <!--
+        The maximum number of milliseconds that the pool will wait
+        (when there are no available connections) for a connection to be
+        returned before throwing an exception.
+        180000 ms == 3 minutes
+    -->
+    <void method="setProperty">
+     <string>maxWait</string>
+     <string>180000</string>
+    </void>
+
+    <!-- Flag to remove abandoned connections if they exceed the removeAbandonedTimout -->
+    <void method="setProperty">
+     <string>removeAbandoned</string>
+     <string>true</string>
+    </void>
+
+    <!-- The indication of whether connections will be validated by the idle object evictor -->
+    <void method="setProperty">
+     <string>testWhileIdle</string>
+     <string>true</string>
+    </void>
+
+    <!--
+         The number of milliseconds to sleep between runs of the idle connection evictor thread
+         600000 ms == 10 minutes
+    -->
+    <void method="setProperty">
+     <string>timeBetweenEvictionRunsMillis</string>
+     <string>600000</string>
+    </void>
+
+    <!-- The SQL query that will be used to validate connections -->
+    <void method="setProperty">
+     <string>validationQuery</string>
+     <!-- with MySQL and Postgres you can use simply 'select 1' -->
+     <string>select idspace from fnbl_id where idspace!='' limit 1;</string>
+    </void>
+
+    <!-- The indication of whether objects will be validated before being borrowed from the pool -->
+    <void method="setProperty">
+     <string>testOnBorrow</string>
+     <string>false</string>
+    </void>
+
+
+ </object>
+</java>

@@ -186,7 +186,7 @@ ruby_block "show_message" do
       Chef::Log.info "-----"
       Chef::Log.info "Admin login:    admin"
       Chef::Log.info "Admin password: sa"
-      printf "Ready to post install? [yes or ctrl+c to terminate]"
+      Chef::Log.info "Ready to post install? [yes or ctrl+c to terminate]"
       break if ::Readline.readline('> ', false) == "yes"
     end
   end

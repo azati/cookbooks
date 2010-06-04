@@ -31,6 +31,11 @@ template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/ds-server/inst
   backup false
 end
 
+template "#{node[:sugarce_funambol][:funambol_data_dir]}/Funambol/config/com/funambol/server/db/db.xml" do
+  source "db.xml.erb"
+  backup false
+end
+
 mysql_command "UPDATE #{node[:sugarce_funambol][:sugar_db_name]}.users SET user_hash=MD5('#{node[:sugarce_funambol][:sugar_password]}') WHERE user_name='#{node[:sugarce_funambol][:sugar_login]}'" do
   action :execute
 end
