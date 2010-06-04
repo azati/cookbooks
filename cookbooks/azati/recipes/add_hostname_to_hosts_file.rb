@@ -1,4 +1,5 @@
 template "/etc/hosts" do
+  cookbook "azati"
   source "hosts.erb"
   mode "0644"
   owner "root"
