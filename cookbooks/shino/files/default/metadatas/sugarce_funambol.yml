@@ -1,5 +1,5 @@
 ---
-welcome_message: "Application setup has been completed. You can now login to the application by clicking \"Go to application\" button. In order to login, please use \"<hidden_text><%= params[:user_name] %></hidden_text>\" as a user name and \"<hidden_text><%= params[:password] %></hidden_text>\" as a password. You can manage Funambol configuration via Funambol Administration Tool. Login: \"<hidden_text>admin</hidden_text>\", password: \"<hidden_text>sa</hidden_text>\"."
+welcome_message: "Application setup has been completed. You can now login to the application by clicking \"Go to application\" button. In order to login, please use \"<hidden_text><%= params[:user_name] %></hidden_text>\" as a user name and \"<hidden_text><%= params[:password] %></hidden_text>\" as a password. You can manage Funambol configuration via Funambol Administration Tool. Funambol is available at http://<%= params[:domain_name]%>:8080 Login: \"<hidden_text>admin</hidden_text>\", password: \"<hidden_text>sa</hidden_text>\"."
 ssl:
 email:
 server_template: single_server
