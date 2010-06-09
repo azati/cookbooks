@@ -2,6 +2,9 @@ set[:openbravo][:dir]                         = "/var/openbravo"
 set[:openbravo][:attach_path]                 = "/var/openbravo_attachments"
 set[:openbravo][:src_path]                    = "/var/openbravo_src"
 
+set[:openbravo][:pkg_name]                    = "OpenbravoERP-2.50MP18.tar.bz2"
+set[:openbravo][:pkgfolder_name]              = "OpenbravoERP-2.50MP18"
+
 set[:openbravo][:ant_home]                    = "/usr/share/ant"
 set[:openbravo][:ant_opts]                    = "-Xmx2048m -Xms512m -XX:MaxPermSize=512m"
 

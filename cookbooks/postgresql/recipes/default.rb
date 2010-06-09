@@ -1,3 +1,3 @@
-package "postgresql-8.3" do
+package "postgresql" do
   action :install
 end

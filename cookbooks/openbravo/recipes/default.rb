@@ -4,7 +4,10 @@ directory "/mnt/tmp" do
   action :create
 end
 
-include_recipe "azati::backports_repo"
+unless node[:azati][:stack]
+  include_recipe "azati::partner_repo"
+end
+
 include_recipe "azati::apt_update"
 
 include_recipe "java"
@@ -65,52 +68,55 @@ postgresql_command "CREATE DATABASE #{node[:openbravo][:db_name]} WITH ENCODING=
   action :execute
 end
 
-remote_file "/mnt/tmp/OpenbravoERP-2.50MP11.tar.bz2" do
-  source "OpenbravoERP-2.50MP11.tar.bz2"
+remote_file "/mnt/tmp/#{node[:openbravo][:pkg_name]}" do
+  source "http://data.azati.s3.amazonaws.com/openbravo/#{node[:openbravo][:pkg_name]}"
 end
 
-#directory node[:openbravo][:src_path] do
+directory node[:openbravo][:src_path] do
+  owner node[:tomcat6][:user]
+  group node[:tomcat6][:group]
+  action :create
+end
+
+#directory node[:openbravo][:dir] do
 #  owner node[:tomcat6][:user]
 #  group node[:tomcat6][:group]
 #  action :create
 #end
 
-directory node[:openbravo][:dir] do
+directory node[:openbravo][:attach_path] do
   owner node[:tomcat6][:user]
   group node[:tomcat6][:group]
   action :create
 end
+
+#cp -r #{node[:openbravo][:pkgfolder_name]}/* #{node[:openbravo][:dir]}/
+#chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:openbravo][:dir]}
+#chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:openbravo][:src_path]}
 
 bash "unpack_openbravo" do
   code <<-EOH
 cd /mnt/tmp
-tar -xjf OpenbravoERP-2.50MP11.tar.bz2
-mv -f OpenbravoERP-2.50MP11/* #{node[:openbravo][:dir]}/
-chmod -R 0755 #{node[:openbravo][:dir]}
-chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:openbravo][:dir]}
+tar -xjf #{node[:openbravo][:pkg_name]}
+cp -r #{node[:openbravo][:pkgfolder_name]}/* #{node[:openbravo][:src_path]}/
 EOH
 end
 
-directory node[:openbravo][:attach_path] do
-  mode "0755"
-  owner node[:tomcat6][:user]
-  group node[:tomcat6][:group]
-  action :create
-end
-
-execute "make_link" do
-  command "ln -s #{node[:openbravo][:dir]} #{node[:tomcat6][:catalina_base]}/webapps/openbravo"
-  action :run
-end
+#execute "make_link" do
+#  command "ln -s #{node[:openbravo][:dir]} #{node[:tomcat6][:catalina_base]}/webapps/openbravo"
+#  action :run
+#end
 
 remote_file "#{node[:tomcat6][:config_dir]}/policy.d/20openbravo.policy" do
   source "20openbravo.policy"
 end
 
-template "#{node[:openbravo][:dir]}/config/Openbravo.properties" do
+template "#{node[:openbravo][:src_path]}/config/Openbravo.properties" do
   source "Openbravo.properties.erb"
   backup false
 end
+
+#chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:openbravo][:dir]}
 
 bash "install_openbravo" do
   code <<-EOH
@@ -120,25 +126,18 @@ export ANT_HOME="#{node[:openbravo][:ant_home]}"
 export ANT_OPTS="#{node[:openbravo][:ant_opts]}"
 export CATALINA_HOME="#{node[:tomcat6][:catalina_home]}"
 export CATALINA_BASE="#{node[:tomcat6][:catalina_base]}"
-cp #{node[:openbravo][:dir]}/config/Format.xml.template #{node[:openbravo][:dir]}/config/Format.xml
-cp #{node[:openbravo][:dir]}/config/log4j.lcf.template #{node[:openbravo][:dir]}/config/log4j.lcf
-cd #{node[:openbravo][:dir]}
+cp #{node[:openbravo][:src_path]}/config/Format.xml.template #{node[:openbravo][:src_path]}/config/Format.xml
+cp #{node[:openbravo][:src_path]}/config/log4j.lcf.template #{node[:openbravo][:src_path]}/config/log4j.lcf
+cd #{node[:openbravo][:src_path]}
 ant install.source
-chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:openbravo][:dir]}
+chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:openbravo][:src_path]}
 EOH
 end
 
-bash "setup_proxy_and_address" do
-  code <<-EOH
-ADDR=`curl http://169.254.169.254/latest/meta-data/public-hostname`
-perl -p -i -e "s/<Connector port=\\"8080\\" /<Connector port=\\"8080\\" proxyName=\\"$ADDR\\" proxyPort=\\"80\\" /" #{node[:tomcat6][:config_dir]}/server.xml
-EOH
-end
+tomcat6_setup_proxy node[:amazon][:public_hostname]
 
-include_recipe "monitoring"
-
-service "cron" do
-  action :enable
+if node[:azati][:stack]
+  include_recipe "monitoring"
 end
 
 service "apache2" do
@@ -153,11 +152,13 @@ ruby_block "show_success_message" do
   block do
     loop do
       Chef::Log.info "Openbravo successully installed."
-      Chef::Log.info "Now configure your openbravo application."
-      Chef::Log.info "Openbravo User - Openbravo"
-      Chef::Log.info "Openbravo Password - openbravo"
+      Chef::Log.info "Login - Openbravo"
+      Chef::Log.info "Password - openbravo"
+      Chef::Log.info "--------------------------------------------"
+      Chef::Log.info "Mysql root login:    root"
+      Chef::Log.info "Mysql root password: #{node[:mysql][:root_password]}"
       printf "Ready to post install? [yes or ctrl+c to terminate]"
-      break if readline.strip == "yes"
+      break if ::Readline.readline('> ', false) == "yes"
     end
   end
   action :create
