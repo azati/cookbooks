@@ -78,21 +78,11 @@ directory node[:openbravo][:src_path] do
   action :create
 end
 
-#directory node[:openbravo][:dir] do
-#  owner node[:tomcat6][:user]
-#  group node[:tomcat6][:group]
-#  action :create
-#end
-
 directory node[:openbravo][:attach_path] do
   owner node[:tomcat6][:user]
   group node[:tomcat6][:group]
   action :create
 end
-
-#cp -r #{node[:openbravo][:pkgfolder_name]}/* #{node[:openbravo][:dir]}/
-#chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:openbravo][:dir]}
-#chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:openbravo][:src_path]}
 
 bash "unpack_openbravo" do
   code <<-EOH
@@ -102,21 +92,19 @@ cp -r #{node[:openbravo][:pkgfolder_name]}/* #{node[:openbravo][:src_path]}/
 EOH
 end
 
-#execute "make_link" do
-#  command "ln -s #{node[:openbravo][:dir]} #{node[:tomcat6][:catalina_base]}/webapps/openbravo"
-#  action :run
-#end
-
 remote_file "#{node[:tomcat6][:config_dir]}/policy.d/20openbravo.policy" do
   source "20openbravo.policy"
+end
+
+remote_file "#{node[:tomcat6][:config_dir]}/context.xml" do
+  source "context.xml"
+  backup false
 end
 
 template "#{node[:openbravo][:src_path]}/config/Openbravo.properties" do
   source "Openbravo.properties.erb"
   backup false
 end
-
-#chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:openbravo][:dir]}
 
 bash "install_openbravo" do
   code <<-EOH
