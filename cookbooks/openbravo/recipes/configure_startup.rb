@@ -6,7 +6,7 @@ update_rc_d "tomcat6" do
   action :remove
 end
 
-update_rc_d "nagios" do
+update_rc_d "nagios3" do
   action :remove
 end
 
@@ -20,7 +20,7 @@ update_rc_d "tomcat6" do
   nn     98
 end
 
-update_rc_d "nagios" do
+update_rc_d "nagios3" do
   action :defaults
   nn     99
 end

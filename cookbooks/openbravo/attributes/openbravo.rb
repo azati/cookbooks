@@ -1,4 +1,4 @@
-set[:openbravo][:dir]                         = "/var/openbravo"
+#set[:openbravo][:dir]                         = "/var/openbravo"
 set[:openbravo][:attach_path]                 = "/var/openbravo_attachments"
 set[:openbravo][:src_path]                    = "/var/openbravo_src"
 

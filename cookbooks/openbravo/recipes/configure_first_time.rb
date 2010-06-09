@@ -10,7 +10,7 @@ postgresql_command "ALTER ROLE #{node[:openbravo][:db_user]} WITH PASSWORD '#{no
   action :execute
 end
 
-template "#{node[:openbravo][:dir]}/WEB-INF/Openbravo.properties" do
+template "#{node[:tomcat6][:catalina_base]}/webapps/openbravo/WEB-INF/Openbravo.properties" do
   source "Openbravo.properties.erb"
   backup false
 end
@@ -20,7 +20,7 @@ postgresql_command "UPDATE ad_user SET password = '#{node[:openbravo][:encrypted
   dbname node[:openbravo][:db_name]
 end
 
-openbravo_update_domain node[:openbravo][:domain_name]
+tomcat6_setup_proxy node[:openbravo][:domain_name]
 
 log "Openbravo User - Openbravo"
 log "Openbravo Password - #{node[:openbravo][:password]}"

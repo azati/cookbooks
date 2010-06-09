@@ -1,4 +1,4 @@
-service "nagios" do
+service "nagios3" do
   action :stop
 end
 
@@ -10,7 +10,7 @@ service "tomcat6" do
   action :stop
 end
 
-service "postgresql-8.3" do
+service "postgresql-8.4" do
   action :stop
 end
 

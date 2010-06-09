@@ -131,6 +131,7 @@ cp #{node[:openbravo][:src_path]}/config/log4j.lcf.template #{node[:openbravo][:
 cd #{node[:openbravo][:src_path]}
 ant install.source
 chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:openbravo][:src_path]}
+chown -R #{node[:tomcat6][:user]}.#{node[:tomcat6][:group]} #{node[:tomcat6][:catalina_base]}/webapps/openbravo
 EOH
 end
 

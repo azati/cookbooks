@@ -1,6 +1,6 @@
 node[:openbravo][:domain_name] = node[:params][:domain_name]
 
-openbravo_update_domain node[:openbravo][:domain_name]
+tomcat6_setup_proxy node[:openbravo][:domain_name]
 
 openbravo_service_web do
   action :restart

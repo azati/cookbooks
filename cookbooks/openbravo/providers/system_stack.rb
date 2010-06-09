@@ -1,6 +1,6 @@
 action :start do
 
-  service "postgresql-8.3" do
+  service "postgresql-8.4" do
     action :start
   end
 
@@ -16,7 +16,7 @@ action :stop do
     action :stop
   end
 
-  service "postgresql-8.3" do
+  service "postgresql-8.4" do
     action :stop
   end
 
@@ -24,11 +24,11 @@ end
 
 action :restart do
 
-  service "nagios" do
+  service "nagios3" do
     action :stop
   end
 
-  service "postgresql-8.3" do
+  service "postgresql-8.4" do
     action :restart
   end
 
@@ -40,7 +40,7 @@ action :restart do
     action :restart
   end
 
-  service "nagios" do
+  service "nagios3" do
     action :start
   end
 
