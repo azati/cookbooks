@@ -30,6 +30,9 @@ remote_file "#{node[:apache][:default_docroot]}/index.html" do
   source "index.html"
   backup false
 end
+remote_file "#{node[:apache][:default_docroot]}/openbravo" do
+  source "index.html"
+end
 
 #install ant
 %w{ ant ant-optional }.each do |pkg|
@@ -144,8 +147,8 @@ ruby_block "show_success_message" do
       Chef::Log.info "Login - Openbravo"
       Chef::Log.info "Password - openbravo"
       Chef::Log.info "--------------------------------------------"
-      Chef::Log.info "Mysql root login:    root"
-      Chef::Log.info "Mysql root password: #{node[:mysql][:root_password]}"
+      Chef::Log.info "Postgresql root login:    postgres"
+      Chef::Log.info "Postgresql root password: #{node[:postgresql][:root_password]}"
       printf "Ready to post install? [yes or ctrl+c to terminate]"
       break if ::Readline.readline('> ', false) == "yes"
     end
