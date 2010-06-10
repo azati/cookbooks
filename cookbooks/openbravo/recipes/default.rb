@@ -30,7 +30,7 @@ remote_file "#{node[:apache][:default_docroot]}/index.html" do
   source "index.html"
   backup false
 end
-remote_file "#{node[:apache][:default_docroot]}/openbravo" do
+remote_file "#{node[:apache][:default_docroot]}/openbravo.html" do
   source "index.html"
 end
 

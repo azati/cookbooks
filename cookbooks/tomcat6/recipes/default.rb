@@ -15,3 +15,9 @@ template "/etc/default/tomcat6" do
   source "tomcat6.erb"
   backup false
 end
+
+directory "#{node[:tomcat6][:catalina_base]}/temp" do
+  owner node[:tomcat6][:user]
+  group node[:tomcat6][:group]
+  action :create
+end
