@@ -37,7 +37,12 @@ postgresql_command "ALTER ROLE #{node[:openbravo][:db_user]} WITH PASSWORD '#{no
   action :execute
 end
 
-template "#{node[:openbravo][:dir]}/WEB-INF/Openbravo.properties" do
+template "#{node[:tomcat6][:catalina_base]}/webapps/openbravo/WEB-INF/Openbravo.properties" do
+  source "Openbravo.properties.erb"
+  backup false
+end
+
+template "#{node[:openbravo][:src_path]}/config/Openbravo.properties" do
   source "Openbravo.properties.erb"
   backup false
 end

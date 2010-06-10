@@ -15,6 +15,11 @@ template "#{node[:tomcat6][:catalina_base]}/webapps/openbravo/WEB-INF/Openbravo.
   backup false
 end
 
+template "#{node[:openbravo][:src_path]}/config/Openbravo.properties" do
+  source "Openbravo.properties.erb"
+  backup false
+end
+
 postgresql_command "UPDATE ad_user SET password = '#{node[:openbravo][:encrypted_password]}' WHERE name = 'Openbravo';" do
   action :execute
   dbname node[:openbravo][:db_name]
