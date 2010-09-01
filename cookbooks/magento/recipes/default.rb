@@ -72,7 +72,8 @@ php -f install.php -- \
 --admin_lastname "admin" \
 --admin_email "admin@noemail.no" \
 --admin_username "admin" \
---admin_password "admin11"
+--admin_password "admin11" \
+--skip_url_validation
 EOH
 end
 
