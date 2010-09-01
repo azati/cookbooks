@@ -4,7 +4,7 @@
         DocumentRoot <%= @node[:apache][:default_docroot] %>
         <Directory />
                 Options FollowSymLinks
-                AllowOverride None
+                AllowOverride All
         </Directory>
         <Directory <%= @node[:apache][:default_docroot] %>>
                 Options Indexes FollowSymLinks MultiViews
