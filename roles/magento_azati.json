@@ -1,0 +1,22 @@
+{
+  "name": "magento_azati",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "shino": {
+      "metadata": "magento.yml"
+    },
+    "mysql": {
+      "wait_timeout": 28800
+    },
+    "azati": {
+      "stack": true
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["magento", "shino", "magento::configure_startup", "magento::default_post"]
+}
