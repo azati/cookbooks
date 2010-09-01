@@ -70,9 +70,9 @@ php -f install.php -- \
 --use_secure_admin "no" \
 --admin_firstname "admin" \
 --admin_lastname "admin" \
---admin_email "admin@noemail" \
+--admin_email "admin@noemail.no" \
 --admin_username "admin" \
---admin_password "admin"
+--admin_password "admin11"
 EOH
 end
 
@@ -92,12 +92,12 @@ service "mysql" do
   action :restart
 end
 
-ruby_block "show_mysql_root_password" do
+ruby_block "show_password" do
   block do
     loop do
       Chef::Log.info "Now check your Magento application with following settings:"
       Chef::Log.info "Login:       admin"
-      Chef::Log.info "Password:    admin"
+      Chef::Log.info "Password:    admin11"
       printf "Ready to post install? [yes or ctrl+c to terminate]"
       break if ::Readline.readline('> ', false) == "yes"
     end
