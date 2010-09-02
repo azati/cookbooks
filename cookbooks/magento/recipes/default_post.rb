@@ -19,7 +19,7 @@ execute "sync" do
 end
 
 #produces strange error ERROR
-#execute[history -c] (/opt/azati/chef/cookbooks/sugarce/recipes/30users_post.rb line 17) had an error: No such file or directory - history -c
+#execute[history -c] {...} had an error: No such file or directory - history -c
 #
 #execute "history -c" do
 #  action :run

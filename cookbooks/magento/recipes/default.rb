@@ -77,6 +77,14 @@ php -f install.php -- \
 EOH
 end
 
+#missing entries for correct work of ssl recipes
+mysql_command "INSERT INTO #{node[:magento][:db_name]}.core_config_data VALUES (20,'default',0,'web/secure/use_in_frontend','0');" do
+  action :execute
+  end
+mysql_command "INSERT INTO #{node[:magento][:db_name]}.core_config_data VALUES (21,'default',0,'web/secure/use_in_adminhtml','0');" do
+  action :execute
+end
+
 if node[:azati][:stack]
   mysql_command "CREATE USER 'nagios'@'localhost' IDENTIFIED BY 'Nu71QHuSgOtTxXCIYPKJ'" do
     action :execute
