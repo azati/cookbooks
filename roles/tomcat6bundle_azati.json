@@ -1,0 +1,16 @@
+{
+  "name": "tomcat6bundle",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "shino": {
+      "metadata": "tomcat6bundle.yml"
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["tomcat6bundle", "shino", "tomcat6bundle::configure_startup", "tomcat6bundle::default_post"]
+}

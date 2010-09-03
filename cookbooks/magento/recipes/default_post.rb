@@ -10,6 +10,10 @@ service "mysql" do
   action :stop
 end
 
+execute "rm -rf #{node[:apache][:default_docroot]}/var/cache/*" do
+  action :run
+end
+
 execute "apt-get clean" do
   action :run
 end
