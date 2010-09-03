@@ -7,6 +7,12 @@
     },
     "shino": {
       "metadata": "tomcat6bundle.yml"
+    },
+    "mysql": {
+      "wait_timeout": 28800
+    },
+    "azati": {
+      "stack": true
     }
   },
   "json_class": "Chef::Role",
