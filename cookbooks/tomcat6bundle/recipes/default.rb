@@ -39,6 +39,10 @@ end
 tomcat6_setup_proxy node[:amazon][:public_hostname]
 
 if node[:azati][:stack]
+  mysql_command "CREATE USER 'nagios'@'localhost' IDENTIFIED BY 'Nu71QHuSgOtTxXCIYPKJ'" do
+    action :execute
+  end
+
   include_recipe "monitoring"
 end
 
