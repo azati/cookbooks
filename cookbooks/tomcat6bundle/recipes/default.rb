@@ -50,21 +50,6 @@ service "tomcat6" do
   action :start
 end
 
-bash "save_settings_in_file" do
-  code <<-EOH
-cat <<EOL >> /root/bundle_settings.txt
-Mysql hostname - #{node[:tomcat6bundle][:db_host]}
-Mysql dbname   - #{node[:tomcat6bundle][:db_name]}
-Mysql login    - #{node[:tomcat6bundle][:db_login]}
-Mysql password - #{node[:tomcat6bundle][:db_password]}
-------------------------
-Tomcat6 homedir   - #{node[:tomcat6][:catalina_home]}
-Tomcat6 basedir   - #{node[:tomcat6][:catalina_base]}
-Tomcat6 configdir - #{node[:tomcat6][:config_dir]}
-EOL
-EOH
-end
-
 ruby_block "show_success_message" do
   block do
     loop do
