@@ -77,6 +77,12 @@ php -f install.php -- \
 EOH
 end
 
+#modified rewrite section to support apache server-status
+cookbook_file "#{node[:apache][:default_docroot]}/.htaccess" do
+  source "htaccess"
+  mode "0644"
+end
+
 #missing entries for correct work of ssl recipes
 mysql_command "INSERT INTO #{node[:magento][:db_name]}.core_config_data VALUES (20,'default',0,'web/secure/use_in_frontend','0');" do
   action :execute

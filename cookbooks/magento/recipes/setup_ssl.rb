@@ -17,3 +17,5 @@ end
 mysql_command "UPDATE #{node[:magento][:db_name]}.core_config_data SET value='1' WHERE path='web/secure/use_in_adminhtml';" do
   action :execute
 end
+
+magento_clear_cache

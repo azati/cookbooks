@@ -22,6 +22,8 @@ apache2_site_restore "/mnt/restore/site.tar.gz" do
   action :execute
 end
 
+magento_clear_cache
+
 service "mysql" do
   action :restart
 end

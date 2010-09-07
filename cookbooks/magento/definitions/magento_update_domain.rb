@@ -11,5 +11,7 @@ define :magento_update_domain do
       action :execute
     end
 
+    magento_clear_cache
+
   end
 end

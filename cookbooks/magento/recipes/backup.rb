@@ -2,6 +2,8 @@ directory "/mnt/backup" do
   action :create
 end
 
+magento_clear_cache
+
 mysql_reset_root_password
 
 mysql_db_backup "/mnt/backup/db.sql.gz" do
