@@ -26,25 +26,30 @@ end
 
 mysql_reset_root_password
 
-mysql_command "CREATE DATABASE #{node[:joomla][:db_name]} DEFAULT CHARACTER SET utf8;" do
-  action :execute
+mysql_create_db node[:joomla][:db_name] do
+  action :create
+  charset "utf8"
 end
-mysql_command "GRANT ALL ON #{node[:joomla][:db_name]}.* TO '#{node[:joomla][:db_login]}'@'#{node[:joomla][:db_host]}' IDENTIFIED BY '#{node[:joomla][:db_password]}';" do
-  action :execute
+
+mysql_grant node[:joomla][:db_name] do
+  action :run
+  db_login node[:joomla][:db_login]
+  db_host node[:joomla][:db_host]
+  db_password node[:joomla][:db_password]
 end
 
 directory "/mnt/tmp" do
   action :create
 end
 
-remote_file "/mnt/tmp/Joomla_1.5.15-Stable-Full_Package.zip" do
-  source "Joomla_1.5.15-Stable-Full_Package.zip"
+remote_file "/mnt/tmp/#{node[:joomla][:package_name]}.#{node[:joomla][:package_name_ext]}" do
+  source "http://data.azati.s3.amazonaws.com/joomla/#{node[:joomla][:package_name]}.#{node[:joomla][:package_name_ext]}"
 end
 
 bash "unpack_joomla" do
   code <<-EOH
 cd /mnt/tmp
-unzip -q Joomla_1.5.15-Stable-Full_Package.zip -d #{node[:apache][:default_docroot]}
+unzip -q #{node[:joomla][:package_name]}.#{node[:joomla][:package_name_ext]} -d #{node[:apache][:default_docroot]}
 mv -f #{node[:apache][:default_docroot]}/htaccess.txt #{node[:apache][:default_docroot]}/.htaccess
 chown -R #{node[:apache][:user]}:#{node[:apache][:user]} #{node[:apache][:default_docroot]}
 EOH
@@ -55,12 +60,13 @@ directory "/mnt/tmp" do
   recursive true
 end
 
-#To mysql monitoring work properly, we have to create nagios mysql user.
-mysql_command "CREATE USER 'nagios'@'localhost' IDENTIFIED BY 'Nu71QHuSgOtTxXCIYPKJ'" do
-  action :execute
-end
+if node[:azati][:stack]
+  mysql_command "CREATE USER 'nagios'@'localhost' IDENTIFIED BY 'Nu71QHuSgOtTxXCIYPKJ'" do
+    action :execute
+  end
 
-include_recipe "monitoring"
+  include_recipe "monitoring"
+end
 
 service "cron" do
   action :enable
@@ -78,9 +84,9 @@ ruby_block "show_mysql_root_password" do
   block do
     loop do
       Chef::Log.info "Now configure your Joomla application with following settings."
-      Chef::Log.info "Mysql host: #{node[:joomla][:db_host]}"
+      Chef::Log.info "Mysql host:     #{node[:joomla][:db_host]}"
       Chef::Log.info "Mysql database: #{node[:joomla][:db_name]}"
-      Chef::Log.info "Mysql login: #{node[:joomla][:db_login]}"
+      Chef::Log.info "Mysql login:    #{node[:joomla][:db_login]}"
       Chef::Log.info "Mysql password: #{node[:joomla][:db_password]}"
       printf "Ready to post install? [yes or ctrl+c to terminate]"
       break if readline.strip == "yes"

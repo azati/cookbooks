@@ -4,15 +4,19 @@ node[:joomla][:domain_name]      = node[:params][:domain_name]
 
 encrypt_joomla_pass node[:joomla][:password]
 
-service "nagios" do
+service "nagios3" do
   action :stop
 end
 
 mysql_reset_root_password
 
-mysql_command "GRANT ALL ON #{node[:joomla][:db_name]}.* TO '#{node[:joomla][:db_login]}'@'#{node[:joomla][:db_host]}' IDENTIFIED BY '#{node[:joomla][:db_password]}';" do
-  action :execute
+mysql_grant node[:joomla][:db_name] do
+  db_login      node[:joomla][:db_login]
+  db_host       node[:joomla][:db_host]
+  db_password   node[:joomla][:db_password]
+  action        :run
 end
+
 mysql_command "UPDATE #{node[:joomla][:db_name]}.jos_users SET password='#{node[:joomla][:encrypted_password]}' WHERE name='Administrator';" do
   action :execute
 end
