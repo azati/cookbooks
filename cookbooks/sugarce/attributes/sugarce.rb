@@ -1,4 +1,4 @@
-set[:sugarce][:version]                     = "5.5.2"
+set[:sugarce][:version]                     = "6.0.1"
 
 set_unless[:sugarce][:login]                = "admin"
 
