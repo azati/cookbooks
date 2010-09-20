@@ -89,7 +89,7 @@ ruby_block "show_mysql_root_password" do
       Chef::Log.info "Mysql login:    #{node[:joomla][:db_login]}"
       Chef::Log.info "Mysql password: #{node[:joomla][:db_password]}"
       printf "Ready to post install? [yes or ctrl+c to terminate]"
-      break if readline.strip == "yes"
+      break if ::Readline.readline('> ', false) == "yes"
     end
   end
   action :create
