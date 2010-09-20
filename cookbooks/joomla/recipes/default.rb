@@ -60,6 +60,12 @@ directory "/mnt/tmp" do
   recursive true
 end
 
+#modified rewrite section to support apache server-status
+remote_file "#{node[:apache][:default_docroot]}/.htaccess" do
+  source "htaccess"
+  mode "0644"
+end
+
 if node[:azati][:stack]
   mysql_command "CREATE USER 'nagios'@'localhost' IDENTIFIED BY 'Nu71QHuSgOtTxXCIYPKJ'" do
     action :execute
