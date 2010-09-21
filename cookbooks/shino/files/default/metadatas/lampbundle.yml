@@ -1,0 +1,39 @@
+---
+welcome_message: "Bundle setup has been completed. You can find settings in /root/bundle_settings.txt"
+ssl:
+email:
+server_template: single_server
+cluster_template: single_server_cluster
+cookbook: lampbundle
+user_name: lampbundle
+chef_advanced_params:
+  monitoring:
+    components:
+    - cpu
+    - mysql
+    - mem
+    - ssh
+    - http
+    - apache
+    - df
+    - iostat
+    - postfix
+    - mailq
+  ssl:
+    enabled: false
+status_components:
+- mysql
+- http
+- ssh
+- apache
+statistic_components:
+- cpu
+- mysql
+- mem
+- ssh
+- http
+- apache
+- df
+- iostat
+- postfix
+

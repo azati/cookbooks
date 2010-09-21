@@ -19,6 +19,14 @@ service "tomcat6" do
   action :stop
 end
 
+service "apache2" do
+  action :restart
+end
+
+service "mysql" do
+  action :restart
+end
+
 remote_file "#{node[:apache][:dir]}/conf.d/tomcat6-proxy" do
   source "tomcat6-proxy"
 end
@@ -29,11 +37,16 @@ end
 
 mysql_reset_root_password
 
-mysql_command "CREATE DATABASE #{node[:tomcat6bundle][:db_name]} DEFAULT CHARACTER SET utf8;" do
-  action :execute
+mysql_create_db node[:tomcat6bundle][:db_name] do
+  action :create
+  charset "utf8"
 end
-mysql_command "GRANT ALL ON #{node[:tomcat6bundle][:db_name]}.* TO '#{node[:tomcat6bundle][:db_login]}'@'#{node[:tomcat6bundle][:db_host]}' IDENTIFIED BY '#{node[:tomcat6bundle][:db_password]}';" do
-  action :execute
+
+mysql_grant node[:tomcat6bundle][:db_name] do
+  action :run
+  db_login node[:tomcat6bundle][:db_login]
+  db_host node[:tomcat6bundle][:db_host]
+  db_password node[:tomcat6bundle][:db_password]
 end
 
 tomcat6_setup_proxy node[:amazon][:public_hostname]
@@ -47,6 +60,10 @@ if node[:azati][:stack]
 end
 
 service "apache2" do
+  action :restart
+end
+
+service "mysql" do
   action :restart
 end
 

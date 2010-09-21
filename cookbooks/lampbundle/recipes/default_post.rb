@@ -10,10 +10,6 @@ service "mysql" do
   action :stop
 end
 
-service "tomcat6" do
-  action :stop
-end
-
 execute "apt-get clean" do
   action :run
 end

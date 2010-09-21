@@ -4,7 +4,7 @@ action :start do
     action :start
   end
 
-  tomcat6bundle_service_web do
+  lampbundle_service_web do
     action :start
   end
 
@@ -12,7 +12,7 @@ end
 
 action :stop do
 
-  tomcat6bundle_service_web do
+  lampbundle_service_web do
     action :stop
   end
 
@@ -29,10 +29,6 @@ action :restart do
   end
 
   service "mysql" do
-    action :restart
-  end
-
-  service "tomcat6" do
     action :restart
   end
 
