@@ -79,6 +79,7 @@ bash "default_app" do
   code <<-EOH
 cd #{node[:rails3bundle][:base_dir]}
 rails new #{node[:rails3bundle][:appname]} -d mysql
+cd #{node[:rails3bundle][:appname]}
 rails generate scaffold test param:text value:text
 EOH
 end
