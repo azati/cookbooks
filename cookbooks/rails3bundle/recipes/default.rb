@@ -79,7 +79,13 @@ bash "default_app" do
   code <<-EOH
 cd #{node[:rails3bundle][:base_dir]}
 rails new #{node[:rails3bundle][:appname]} -d mysql
+rails generate scaffold test param:text value:text
 EOH
+end
+
+remote_file "#{node[:rails3bundle][:dir]}/config/routes.rb" do
+  source "routes.rb"
+  backup false
 end
 
 template "#{node[:rails3bundle][:dir]}/config/database.yml" do
@@ -91,6 +97,10 @@ template "#{node[:rails3bundle][:dir]}/config/database.yml" do
 end
 
 rake "db:migrate" do
+  action :run
+  cwd node[:rails3bundle][:dir]
+end
+rake "db:migrate RAILS_ENV=production" do
   action :run
   cwd node[:rails3bundle][:dir]
 end
