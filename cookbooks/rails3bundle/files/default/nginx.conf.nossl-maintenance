@@ -1,0 +1,46 @@
+#MAINTENANCE
+user nginx nginx;
+worker_processes  2;
+
+error_log  logs/error.log notice;
+pid        logs/nginx.pid;
+
+events {
+    worker_connections  1024;
+    }
+
+http {
+    include                  mime.types;
+    default_type             application/octet-stream;
+
+    ignore_invalid_headers   on;
+    server_name_in_redirect  off;
+    server_tokens            off;
+    sendfile                 on;
+    tcp_nopush               on;
+    keepalive_timeout        65;
+    tcp_nodelay              on;
+
+    gzip                     on;
+    gzip_min_length          0;
+    gzip_buffers             16 8k;
+    gzip_types               text/plain text/css application/x-javascript text/xml;
+    gzip_http_version        1.0;
+    gzip_disable             "MSIE [1-6] \.";
+    gzip_comp_level          9;
+    gzip_vary                on;
+    gzip_proxied             any;
+
+	server {
+      listen 80;
+      rewrite		(.*) /index.html break;
+      root   		/var/www-azati;
+
+      access_log  	off;
+      rewrite_log 	off;
+		
+        location / {
+	index		index.html;
+	}
+    }
+} 
