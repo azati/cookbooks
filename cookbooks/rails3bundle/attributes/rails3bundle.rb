@@ -1,6 +1,6 @@
 set[:rails3bundle][:base_dir]                    = "/var"
-set[:rails3bundle][:appname]                     = "rails"
-set[:rails3bundle][:dir]                         = "/var/rails"
+set[:rails3bundle][:appname]                     = "railsapp"
+set[:rails3bundle][:dir]                         = "/var/railsapp"
 
 set_unless[:rails3bundle][:db_host]              = "localhost"
 set_unless[:rails3bundle][:db_login]             = "rails3bundle"

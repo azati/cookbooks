@@ -58,7 +58,7 @@ http {
     server {
         listen       443;
         server_name  _;
-        root          /var/rails;
+        root          /var/railsapp;
 
         access_log  on;
         rewrite_log off;
@@ -84,15 +84,15 @@ http {
 	}
 		
         location ^~ /images {
-          root /var/rails/public;
+          root /var/railsapp/public;
         }
 
         location ^~ /stylesheets {
-          root /var/rails/public;
+          root /var/railsapp/public;
         }
 
         location ^~ /javascripts {
-          root /var/rails/public;
+          root /var/railsapp/public;
         }
     }
 }
