@@ -1,0 +1,38 @@
+---
+welcome_message: "Bundle setup has been completed. You can find settings in /root/bundle_settings.txt"
+ssl:
+email:
+server_template: single_server
+cluster_template: single_server_cluster
+cookbook: rails3bundle_azati
+user_name: admin
+chef_advanced_params:
+  monitoring:
+    components:
+    - nginx
+    - cpu
+    - mysql
+    - df
+    - http
+    - ssh
+    - mailq
+    - postfix
+    - iostat
+    - mem
+  ssl:
+    enabled: false
+status_components:
+- mysql
+- http
+- ssh
+- nginx
+statistic_components:
+- nginx
+- cpu
+- mysql
+- df
+- http
+- ssh
+- postfix
+- iostat
+- mem
