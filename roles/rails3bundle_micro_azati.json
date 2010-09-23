@@ -1,0 +1,60 @@
+{
+  "name": "rails3bundle_micro_azati",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["nginx","cpu","mysql","http","df","ssh","mailq","postfix","iostat","mem"]
+    },
+    "shino": {
+      "metadata": "rails3bundle.yml"
+    },
+    "ruby": {
+      "rails_ver": "3.0.0"
+    },
+    "nagios": {
+      "nginx": {
+        "check_command": "$USER1$/check_nginx.sh -H localhost -P 80 -p /usr/local/nginx/logs/ -n nginx.pid -s nginx_status",
+        "handler_command": "$USER1$/eventhandlers/azati_nginx_handler  $SERVICESTATE$ $SERVICESTATETYPE$ $SERVICEATTEMPT$"
+      },
+      "http": {
+        "check_command": "$USER1$/check_http -I localhost -H localhost -u http://localhost/"
+      }
+    },
+    "mysql": {
+      "wait_timeout": 28800,
+      "max_connections": 300,
+      "max_connect_errors": 200,
+      "key_buffer": "64M",
+      "max_allowed_packet": "2M",
+      "table_cache": 256,
+      "sort_buffer_size": "32M",
+      "join_buffer_size": "64M",
+      "read_buffer_size": "8M",
+      "read_rnd_buffer_size": "32M",
+      "myisam_sort_buffer_size": "32M",
+      "query_cache_size": "64M",
+      "query_cache_limit": "8M",
+      "innodb_additional_mem_pool_size": "32M",
+      "innodb_buffer_pool_size": "64M",
+      "isamchk": {
+        "key_buffer": "64M",
+        "sort_buffer_size": "64M",
+        "read_buffer": "2M",
+        "write_buffer": "2M"
+      },
+      "myisamchk": {
+        "key_buffer": "64M",
+        "sort_buffer_size": "64M",
+        "read_buffer": "2M",
+        "write_buffer": "2M"
+      }
+    },
+    "azati": {
+      "stack": true
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["rails3bundle","shino","rails3bundle::configure_startup","rails3bundle::default_post"]
+}
