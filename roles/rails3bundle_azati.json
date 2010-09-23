@@ -3,7 +3,7 @@
   "default_attributes": { },
   "override_attributes": {
     "monitoring": {
-      "components": ["nginx","cpu","mysql","df","ssh","mailq","postfix","iostat","mem"]
+      "components": ["nginx","cpu","mysql","http","df","ssh","mailq","postfix","iostat","mem"]
     },
     "shino": {
       "metadata": "rails3bundle.yml"

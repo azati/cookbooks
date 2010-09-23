@@ -4,7 +4,7 @@ ssl:
 email:
 server_template: single_server
 cluster_template: single_server_cluster
-cookbook: rails3bundle_azati
+cookbook: rails3bundle
 user_name: admin
 chef_advanced_params:
   monitoring:
