@@ -92,7 +92,7 @@ ruby_block "show_mysql_root_password" do
       Chef::Log.info "Files path:     #{node[:egroupware][:files_path]}"
       Chef::Log.info "Backup path:    #{node[:egroupware][:backup_path]}"
       printf "Ready to post install? [yes or ctrl+c to terminate]"
-      break if readline.strip == "yes"
+      break if ::Readline.readline('> ', false) == "yes"
     end
   end
   action :create
