@@ -8,25 +8,20 @@ include_recipe "apache2"
 include_recipe "php"
 include_recipe "php::php-imap"
 include_recipe "php::php-mbstring"
+include_recipe "php::php-mcrypt"
 include_recipe "php::php-mysql"
 include_recipe "php::php-ldap"
 include_recipe "php::php-pear"
 include_recipe "php::php-gd"
 include_recipe "php::php-eaccelerator"
 
-execute "perl -p -i -e 's/;mbstring.func_overload = 0/mbstring.func_overload = 7/' #{node[:php][:dir]}/php.ini" do
-  action :run
-end
-execute "perl -p -i -e 's/display_errors = On/display_errors = Off/' #{node[:php][:dir]}/php.ini" do
-  action :run
-end
-execute "perl -p -i -e 's/magic_quotes_gpc = On/magic_quotes_gpc = Off/' #{node[:php][:dir]}/php.ini" do
-  action :run
-end
-
 mysql_reset_root_password
 
 service "apache2" do
+  action :restart
+end
+
+service "mysql" do
   action :restart
 end
 
@@ -37,6 +32,9 @@ end
 remote_file "/mnt/tmp/#{node[:egroupware][:file]}" do
   source "http://data.azati.s3.amazonaws.com/egroupware/#{node[:egroupware][:file]}"
 end
+remote_file "/mnt/tmp/#{node[:egroupware][:jpgraph_file]}" do
+  source "http://data.azati.s3.amazonaws.com/egroupware/#{node[:egroupware][:jpgraph_file]}"
+end
 
 bash "unpack_egroupware" do
   code <<-EOH
@@ -45,6 +43,14 @@ tar -xzf #{node[:egroupware][:file]}
 mv -f egroupware/* #{node[:apache][:default_docroot]}
 mv -f egroupware/.htaccess #{node[:apache][:default_docroot]}
 chown -R #{node[:apache][:user]}:#{node[:apache][:user]} #{node[:apache][:default_docroot]}
+EOH
+end
+
+bash "unpack_jpgraph" do
+  code <<-EOH
+cd /mnt/tmp
+mkdir /var/jpgraph
+tar -xzf #{node[:egroupware][:jpgraph_file]} -C /var/jpgraph
 EOH
 end
 

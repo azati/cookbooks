@@ -1,4 +1,5 @@
 set[:egroupware][:file]                        = "eGroupware-1.8.001.20100920.tar.gz"
+set[:egroupware][:jpgraph_file]                = "jpgraph-3.0.7.tar.gz"
 
 set[:egroupware][:files_path]                  = "/var/egroup-files"
 set[:egroupware][:backup_path]                 = "/var/egroup-backup"

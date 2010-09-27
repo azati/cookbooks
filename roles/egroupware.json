@@ -6,7 +6,10 @@
       "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
     },
     "php": {
-      "pear_packages": ["HTTP_WebDAV_Server-1.0.0RC4", "Auth_SASL", "XML_Feed_Parser", "Net_Sieve", "Net_IMAP", "Log" ]
+      "pear_packages": ["HTTP_WebDAV_Server-1.0.0RC4", "Auth_SASL", "XML_Feed_Parser", "Net_Sieve", "Net_IMAP", "Log" ],
+      "mbstring": {
+        "func_overload": "7"
+      }
     },
     "shino": {
       "metadata": "egroupware.yml"
