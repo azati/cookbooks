@@ -1,5 +1,7 @@
-set[:egroupware][:files_path]                   = "/var/egroup-files"
-set[:egroupware][:backup_path]                  = "/var/egroup-backup"
+set[:egroupware][:file]                        = "eGroupware-1.8.001.20100920.tar.gz"
+
+set[:egroupware][:files_path]                  = "/var/egroup-files"
+set[:egroupware][:backup_path]                 = "/var/egroup-backup"
 
 set_unless[:egroupware][:db_host]              = "localhost"
 set_unless[:egroupware][:db_login]             = "egroupware"
