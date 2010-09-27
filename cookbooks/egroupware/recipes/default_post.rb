@@ -1,4 +1,4 @@
-service "nagios" do
+service "nagios3" do
   action :stop
 end
 

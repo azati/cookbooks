@@ -8,7 +8,7 @@ action :start do
     action :restart
   end
 
-  service "nagios" do
+  service "nagios3" do
     action :start
   end
 
@@ -20,7 +20,7 @@ action :stop do
     action :enable
   end
 
-  service "nagios" do
+  service "nagios3" do
     action :stop
   end
 
@@ -32,7 +32,7 @@ end
 
 action :restart do
 
-  service "nagios" do
+  service "nagios3" do
     action :stop
   end
 
@@ -40,7 +40,7 @@ action :restart do
     action :restart
   end
 
-  service "nagios" do
+  service "nagios3" do
     action :start
   end
   
