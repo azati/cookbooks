@@ -36,11 +36,15 @@ end
 remote_file "/mnt/tmp/#{node[:egroupware][:jpgraph_file]}" do
   source "http://data.azati.s3.amazonaws.com/egroupware/#{node[:egroupware][:jpgraph_file]}"
 end
+remote_file "/mnt/tmp/#{node[:egroupware][:pear_file]}" do
+  source "http://data.azati.s3.amazonaws.com/egroupware/#{node[:egroupware][:pear_file]}"
+end
 
 bash "unpack_egroupware" do
   code <<-EOH
 cd /mnt/tmp
 tar -xzf #{node[:egroupware][:file]}
+tar -xzf #{node[:egroupware][:pear_file]}
 mv -f egroupware/* #{node[:apache][:default_docroot]}
 mv -f egroupware/.htaccess #{node[:apache][:default_docroot]}
 chown -R #{node[:apache][:user]}:#{node[:apache][:user]} #{node[:apache][:default_docroot]}
