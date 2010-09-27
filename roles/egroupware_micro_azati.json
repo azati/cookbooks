@@ -1,0 +1,54 @@
+{
+  "name": "egroupware",
+  "default_attributes": { },
+  "override_attributes": {
+    "monitoring": {
+      "components": ["cpu","mysql","mem","ssh","http","apache","df","iostat","postfix","mailq"]
+    },
+    "php": {
+      "pear_packages": ["Auth_SASL", "XML_Feed_Parser"],
+      "mbstring": {
+        "func_overload": "7"
+      }
+    },
+    "shino": {
+      "metadata": "egroupware.yml"
+    },
+    "mysql": {
+      "wait_timeout": 28800,
+      "max_connections": 300,
+      "max_connect_errors": 200,
+      "key_buffer": "64M",
+      "max_allowed_packet": "2M",
+      "table_cache": 256,
+      "sort_buffer_size": "32M",
+      "join_buffer_size": "64M",
+      "read_buffer_size": "8M",
+      "read_rnd_buffer_size": "32M",
+      "myisam_sort_buffer_size": "32M",
+      "query_cache_size": "64M",
+      "query_cache_limit": "8M",
+      "innodb_additional_mem_pool_size": "32M",
+      "innodb_buffer_pool_size": "64M",
+      "isamchk": {
+        "key_buffer": "64M",
+        "sort_buffer_size": "64M",
+        "read_buffer": "2M",
+        "write_buffer": "2M"
+      },
+      "myisamchk": {
+        "key_buffer": "64M",
+        "sort_buffer_size": "64M",
+        "read_buffer": "2M",
+        "write_buffer": "2M"
+      }
+    },
+    "azati": {
+      "stack": true
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "recipes": ["egroupware","shino","egroupware::configure_startup","egroupware::default_post"]
+}
