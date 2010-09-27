@@ -11,6 +11,7 @@ include_recipe "php::php-mbstring"
 include_recipe "php::php-mcrypt"
 include_recipe "php::php-mysql"
 include_recipe "php::php-ldap"
+include_recipe "php::php-sqlite"
 include_recipe "php::php-pear"
 include_recipe "php::php-gd"
 include_recipe "php::php-eaccelerator"
@@ -94,9 +95,9 @@ ruby_block "show_mysql_root_password" do
   block do
     loop do
       Chef::Log.info "Now configure your egroupware application with following settings."
-      Chef::Log.info "Mysql password: #{node[:mysql][:root_password]}"
-      Chef::Log.info "Files path:     #{node[:egroupware][:files_path]}"
-      Chef::Log.info "Backup path:    #{node[:egroupware][:backup_path]}"
+      Chef::Log.info "Mysql root password:  #{node[:mysql][:root_password]}"
+      Chef::Log.info "Files path:           #{node[:egroupware][:files_path]}"
+      Chef::Log.info "Backup path:          #{node[:egroupware][:backup_path]}"
       printf "Ready to post install? [yes or ctrl+c to terminate]"
       break if ::Readline.readline('> ', false) == "yes"
     end
