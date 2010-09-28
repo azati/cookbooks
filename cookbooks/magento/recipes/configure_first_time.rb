@@ -1,6 +1,16 @@
-#node[:magento][:login]            = node[:params][:user_name]
+#just know this parameters come from shino
+#node[:magento][:login]               = node[:params][:user_name]
+#node[:proftpd][:login]               = node[:params][:ftp_login]
+#node[:proftpd][:password]            = node[:params][:ftp_password]
+
 node[:magento][:password]         = node[:params][:password]
 node[:magento][:domain_name]      = node[:params][:domain_name]
+
+proftpd_update_password node[:params][:ftp_login] do
+  action :update
+  password node[:params][:ftp_password]
+  system_login node[:apache][:user]
+end
 
 mysql_reset_root_password
 

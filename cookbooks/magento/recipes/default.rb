@@ -16,6 +16,7 @@ include_recipe "php::php-mcrypt"
 include_recipe "php::php-pear"
 include_recipe "php::php-cli"
 include_recipe "php::php-eaccelerator"
+include_recipe "proftpd"
 
 service "apache2" do
   action :restart
