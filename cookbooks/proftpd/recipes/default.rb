@@ -1,4 +1,4 @@
-package "proftpd" do
+package "proftpd-basic" do
   action :install
 end
 
