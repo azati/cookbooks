@@ -24,6 +24,10 @@ end
 
 magento_clear_cache
 
+execute "chown -R #{node[:apache][:user]}.#{node[:apache][:group]} #{node[:apache][:default_docroot]}" do
+  action :run
+end
+
 service "mysql" do
   action :restart
 end

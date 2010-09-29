@@ -1,14 +1,13 @@
 #just know this parameters come from shino
 #node[:magento][:login]               = node[:params][:user_name]
-#node[:proftpd][:login]               = node[:params][:ftp_login]
-#node[:proftpd][:password]            = node[:params][:ftp_password]
-
 node[:magento][:password]         = node[:params][:password]
 node[:magento][:domain_name]      = node[:params][:domain_name]
+node[:proftpd][:login]            = node[:params][:ftp_login]
+node[:proftpd][:password]         = node[:params][:ftp_password]
 
-proftpd_update_password node[:params][:ftp_login] do
+proftpd_update_password node[:proftpd][:login] do
   action :update
-  password node[:params][:ftp_password]
+  password node[:proftpd][:password]
   system_login node[:apache][:user]
 end
 
@@ -23,7 +22,9 @@ end
 
 template "#{node[:apache][:default_docroot]}/app/etc/local.xml" do
   source "local.xml.erb"
-  mode "0777"
+  mode "0644"
+  owner node[:apache][:user]
+  group node[:apache][:group]
 end
 
 mysql_command "UPDATE #{node[:magento][:db_name]}.admin_user SET password=CONCAT(MD5('#{node[:magento][:salt]}#{node[:magento][:password]}'), ':#{node[:magento][:salt]}') WHERE username='#{node[:magento][:login]}';" do

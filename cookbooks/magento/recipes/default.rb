@@ -84,6 +84,10 @@ remote_file "#{node[:apache][:default_docroot]}/.htaccess" do
   mode "0644"
 end
 
+execute "chown -R #{node[:apache][:user]}.#{node[:apache][:group]} #{node[:apache][:default_docroot]}" do
+  action :run
+end
+
 #missing entries for correct work of ssl recipes
 mysql_command "INSERT INTO #{node[:magento][:db_name]}.core_config_data VALUES (20,'default',0,'web/secure/use_in_frontend','0');" do
   action :execute

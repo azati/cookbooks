@@ -1,14 +1,14 @@
 directory node[:apache][:maintenance_root] do
-  owner "root"
-  group "root"
+  owner node[:apache][:user]
+  group node[:apache][:group]
   mode 0755
   action :create
 end
 
 remote_file "#{node[:apache][:maintenance_root]}/index.html" do
   source "maintenance_index.html"
-  owner "root"
-  group "root"
+  owner node[:apache][:user]
+  group node[:apache][:group]
   mode 0644
   backup false
 end

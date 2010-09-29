@@ -3,6 +3,7 @@ action :update do
 
   template "/etc/proftpd/proftpd.conf" do
     source "proftpd.conf.erb"
+    cookbook "proftpd"
     owner "root"
     group "root"
     mode "0644"
