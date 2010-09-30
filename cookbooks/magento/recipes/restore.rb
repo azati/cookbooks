@@ -22,6 +22,10 @@ apache2_site_restore "/mnt/restore/site.tar.gz" do
   action :execute
 end
 
+execute "proftpd_restore" do
+  command "mv -f /mnt/restore/proftpd.conf #{node[:proftpd][:config_path]}"
+end
+
 magento_clear_cache
 
 execute "chown -R #{node[:apache][:user]}.#{node[:apache][:group]} #{node[:apache][:default_docroot]}" do
@@ -29,6 +33,10 @@ execute "chown -R #{node[:apache][:user]}.#{node[:apache][:group]} #{node[:apach
 end
 
 service "mysql" do
+  action :restart
+end
+
+service "proftpd" do
   action :restart
 end
 

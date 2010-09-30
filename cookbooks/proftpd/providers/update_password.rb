@@ -1,7 +1,7 @@
 action :update do
   node[:proftpd][:encrypted_password] = `/opt/azati/lib/ftpasswd_hash_gen.sh #{new_resource.password}`.strip
 
-  template "/etc/proftpd/proftpd.conf" do
+  template node[:proftpd][:config_path] do
     source "proftpd.conf.erb"
     cookbook "proftpd"
     owner "root"
