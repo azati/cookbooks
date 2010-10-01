@@ -16,9 +16,13 @@ execute "metadata_backup" do
   command "cp /opt/azati/shino/config/metadata.yml /mnt/backup/metadata.yml"
 end
 
+execute "proftpd_backup" do
+  command "cp #{node[:proftpd][:config_path]} /mnt/backup/proftpd.conf"
+end
+
 execute "pack_backup" do
   cwd "/mnt/backup"
-  command "tar -cf backup.tar db.sql.gz site.tar.gz metadata.yml"
+  command "tar -cf backup.tar db.sql.gz site.tar.gz metadata.yml proftpd.conf"
 end
 
 file "/mnt/backup/db.sql.gz" do
@@ -32,6 +36,11 @@ file "/mnt/backup/site.tar.gz" do
 end
 
 file "/mnt/backup/metadata.yml" do
+  action :delete
+  backup false
+end
+
+file "/mnt/backup/proftpd.conf" do
   action :delete
   backup false
 end

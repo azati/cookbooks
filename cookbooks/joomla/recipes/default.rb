@@ -11,17 +11,14 @@ include_recipe "php::php-imap"
 include_recipe "php::php-mbstring"
 include_recipe "php::php-gd"
 include_recipe "php::php-eaccelerator"
-
-execute "perl -p -i -e 's/display_errors = On/display_errors = Off/' #{node[:php][:dir]}/php.ini" do
-  action :run
-end
+include_recipe "proftpd"
 
 service "apache2" do
-  action :start
+  action :restart
 end
 
 service "mysql" do
-  action :start
+  action :restart
 end
 
 mysql_reset_root_password
@@ -66,16 +63,20 @@ remote_file "#{node[:apache][:default_docroot]}/.htaccess" do
   mode "0644"
 end
 
+execute "chown -R #{node[:apache][:user]}.#{node[:apache][:group]} #{node[:apache][:default_docroot]}" do
+  action :run
+end
+
 if node[:azati][:stack]
   mysql_command "CREATE USER 'nagios'@'localhost' IDENTIFIED BY 'Nu71QHuSgOtTxXCIYPKJ'" do
     action :execute
   end
 
   include_recipe "monitoring"
-end
 
-service "cron" do
-  action :enable
+  service "cron" do
+    action :enable
+  end
 end
 
 service "apache2" do

@@ -1,6 +1,15 @@
+#just know this parameters come from shino
 #node[:joomla][:login]            = node[:params][:user_name]
 node[:joomla][:password]         = node[:params][:password]
 node[:joomla][:domain_name]      = node[:params][:domain_name]
+node[:proftpd][:login]           = node[:params][:ftp_login]
+node[:proftpd][:password]        = node[:params][:ftp_password]
+
+proftpd_update_password node[:proftpd][:login] do
+  action :update
+  password node[:proftpd][:password]
+  system_login node[:apache][:user]
+end
 
 encrypt_joomla_pass node[:joomla][:password]
 
